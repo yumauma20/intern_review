@@ -11,7 +11,7 @@ services:
     image: nginx # nginxの公式イメージを使用
     container_name: nginx
     ports:
-    - 100:80 # ゲスト100,ホスト80番ポートで接続
+    - 80:80 # ゲスト80,ホスト80番ポートで接続
     volumes:
     - ./src:/var/www # 開発ディレクトリと公開ディレクトリをマウント
     - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf # nginx設定ファイルの指定
