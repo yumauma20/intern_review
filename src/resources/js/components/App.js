@@ -5,12 +5,16 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GlobalNav from './GlobalNav';
 import Top from './Top';
 import About from './About';
+import CompanyCard from './CompanyCard';
+import Pagination from './Pagination';
 
 const App = () => {
     return(
         <BrowserRouter>
         <React.Fragment>
             <GlobalNav />
+            <CompanyCard />
+            <Pagination />
             <Switch>
 　　　　　　　　　　{/*完全一致のため、exactを付与*/}
                 <Route path="/" exact component={Top} /> 
