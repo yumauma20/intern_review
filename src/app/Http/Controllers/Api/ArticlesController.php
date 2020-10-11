@@ -35,8 +35,6 @@ class ArticlesController extends Controller
 
   /**
    * 記事投稿機能
-   * 
-   * @Todo ArticlesRequestクラス作成しバリデーション記載
    */
   public function create(ArticlesRequest $request)
   {
