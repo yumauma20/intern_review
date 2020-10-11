@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/articles', 'Api\ArticlesController@index');
+
+Route::get('/articles/{id}', 'Api\ArticlesController@detail');
