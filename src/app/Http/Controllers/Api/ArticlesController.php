@@ -31,4 +31,21 @@ class ArticlesController extends Controller
     $article = Article::find($id);
     return response()->json(['article' => $article]);
   }
+
+  /**
+   * 記事投稿機能
+   * 
+   * @Todo ArticlesRequestクラス作成しバリデーション記載
+   */
+  public function create(Request $request)
+  {
+    $article = new Article();
+    $article->company = $request->companyName;
+    $article->term = $request->term;
+    $article->task = $request->task;
+    $article->impressions = $request->impressions;
+    $article->user_id = $request->user_id;
+    $article->save();
+    return redirect('/');
+  }
 }
