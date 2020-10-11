@@ -3,13 +3,13 @@ import Header from "../components/Header";
 import SignUpForm from "../components/SignUpForm";
 
 class SognUpPage extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        <SignUpForm />
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <Header />
+                <SignUpForm />
+            </>
+        );
+    }
 }
 export default SognUpPage;
