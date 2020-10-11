@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Validation from "../validation";
+import Validation from "./validation";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -32,8 +32,8 @@ class SignUpForm extends Component {
                     [key]: value
                 },
                 message: {
-                    ...message,
-                    [key]: Validation.formValidate(key, value, maxLength)
+                    ...message
+                    // [key]: Validation.formValidate(key, value, maxLength)
                 }
             });
         };

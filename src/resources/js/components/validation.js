@@ -34,7 +34,7 @@ const countValidation = (text, maxLength) => {
 };
 
 class Validation {
-    static formValidate = (type, value, maxLength) => {
+    formValidate(type, value, maxLength) {
         // eslint-disable-next-line default-case
 
         switch (type) {
@@ -51,7 +51,7 @@ class Validation {
             default:
                 break;
         }
-    };
+    }
 }
 
 export default Validation;
