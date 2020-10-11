@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Article;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticlesRequest;
+use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
@@ -37,7 +38,7 @@ class ArticlesController extends Controller
    * 
    * @Todo ArticlesRequestクラス作成しバリデーション記載
    */
-  public function create(Request $request)
+  public function create(ArticlesRequest $request)
   {
     $article = new Article();
     $article->company = $request->companyName;
