@@ -14,6 +14,22 @@ docker-compose exec php composer install
 ```
 .env.exampleファイルをコピーして.envファイルを作成
 
+
+#### データベースサーバーにログイン
+```
+docker-compose exec db bash //dbコンテナに入る
+>mysql -u root -p
+Enter password: root
+```
+
+## コンテナ内での操作
+
+まずはコンテナに入る
+```
+docker-compose exec php bash
+```
+
+
 #### データベースをマイグレーションで作成
 ```
 php artisan migrate
@@ -22,12 +38,12 @@ php artisan migrate
 ```
 php artisan migrate:refresh --seed
 ```
-#### ポート
+## ポート
 ```
 localhost:80 トップページ
 localhost:1000 phpMyAdmin
 ```
-#### バージョン
+## バージョン
 nginx 1.19.2<br>
 PHP 7.2.33<br>
 MySQL 8.0.21<br>
