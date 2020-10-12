@@ -37,3 +37,17 @@ npm 6.14.8<br>
 Bootstrap 4.5.2<br>
 React 16.13.1<br>
 
+### npm run watch でエラーが出たら...
+
+```
+$ rm -rf node_modules
+$ rm package-lock.json
+$ rm -rf ~/.node-gyp/
+
+$ npm install
+```
+なんかゴミが残ってて邪魔してたりするので、一回きれいにするため
+node_modules と package-lock.json を 削除する。
+↑2つ削除してもだめそうだったら~/.node-gyp/も削除してみる。
+そのあと再度 npm install 実行。
+
