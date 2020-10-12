@@ -67,3 +67,6 @@ node_modules と package-lock.json を 削除する。
 ↑2つ削除してもだめそうだったら~/.node-gyp/も削除してみる。
 そのあと再度 npm install 実行。
 
+## migrationでエラーがでたら...
+
+[MySQL 8.0へ接続時に”SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client”になる場合の対処法](https://blog.janjan.net/2018/11/01/mysql8-request-authentication-method-unknown-to-the-client/)
