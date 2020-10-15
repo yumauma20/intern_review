@@ -1,0 +1,133 @@
+swagger: "2.0"
+info:
+  description: "IntrenReview API仕様\n
+  まずはこのAPI仕様に沿って機能を実装してみましょう。\n"
+  version: "1.0.0"
+  title: "Intern Reivew API"
+host: "localhost:8080"
+tags:
+  - name: "user"
+    description: "ユーザ関連API"
+  - name: "review"
+    description: "レビュー記事関連API"
+  
+schemes:
+  - "http"
+paths:
+  /user/post:
+    post:
+      tags:
+        - "user"
+      summary: "ユーザ新規登録API"
+      description: "新規ユーザーの登録を行います。"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Request Body"
+          required: true
+          schema:
+            $ref: "#/definitions/UserCreateRequest"
+      responses:
+        200:
+          "description": "A successful response."
+
+  /reivew/post:
+    post:
+      tags:
+        - "review"
+      summary: "レビュー投稿API"
+      description: "新規投稿レビューの登録を行います。"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Request Body"
+          required: true
+          schema:
+            $ref: "#/definitions/ReivewCreateRequest"
+      responses:
+        200:
+          "description": "A successful response."
+          
+  /reivew/get:
+    get:
+        tags:
+          - "review"
+        summary: "レビュー記事取得API"
+        description: "idを指定して、投稿記事の取得を行います。"
+        consumes:
+          - "application/json"
+        produces:
+          - "application/json"
+        parameters:
+          - in: "body"
+            name: "body"
+            description: "Request Body"
+            required: true
+            schema:
+              $ref: "#/definitions/ReviewGetRequest"
+        responses:
+          200:
+            "description": "A successful response."
+            "schema":
+              "$ref": "#/definitions/ReviewGetResponse"  
+
+definitions:
+  UserCreateRequest:
+    type: "object"
+    properties:
+      mail:
+        type: "string"
+        description: "ユーザーのメールアドレス"
+      password:
+        type: "string"
+        description: "ユーザーのパスワード"
+  ReivewCreateRequest:
+    type: "object"
+    properties:
+      userId: 
+        type: "string"
+        description: "投稿したユーザーのid"
+      id:
+        type: "string"
+        description: "投稿されたレビューのid"
+      company:
+        type: "string"
+        description: "会社名"
+      term:
+        type: "string"
+        description: "期間"
+      task:
+        type: "string"
+        description: "業務内容"
+      impressions:
+        type: "string"
+        description: "感想"
+  ReviewGetRequest:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "投稿されたレビューのid"
+  ReviewGetResponse:
+    type: "object"
+    properties:
+      company:
+        type: "string"
+        description: "会社名"
+      term: 
+        type: "string"
+        description: "期間"
+      task:
+        type: "string"
+        description: "業務内容"
+      impressions:
+        type: "string"
+        description: "感想"
