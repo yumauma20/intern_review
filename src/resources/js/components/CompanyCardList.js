@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import CompanyCard from "./CompanyCard";
+import axios from 'axios';
 
 class CompanyCardList extends Component {
     constructor(props) {

@@ -14,7 +14,6 @@ class DetailModal extends Component {
     //   render直後に行いたい処理を書くところ
         const url = `http://localhost/api/articles/detail/${this.props.id}`
         axios.get(url).then((res) => {
-        console.log(res.data);
         this.setState({
             article: res.data.article
         });
