@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Validation from "./validation";
+// import Validation from "./validation";
+// import axios from "axios";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class SignUpForm extends Component {
         const handleChange = e => {
             const key = e.target.name;
             const value = e.target.value;
-            const maxLength = e.target.maxLength;
+            // const maxLength = e.target.maxLength;
             const { info, message } = this.state;
 
             this.setState({
@@ -36,6 +37,7 @@ class SignUpForm extends Component {
                     // [key]: Validation.formValidate(key, value, maxLength)
                 }
             });
+            console.log(this.state.info);
         };
 
         const canSubmit = () => {
@@ -58,11 +60,26 @@ class SignUpForm extends Component {
             this.setState({ loading: false });
         };
 
+        // フォームデータ登録非同期通信
+        // const postFormData = () => {
+            // const url = "http://localhost/api/articles/create";
+            // const data = {
+                // companyName: this.state.info.companyName,
+                // term: this.state.info.term,
+                // task: this.state.info.task,
+                // impressioins: this.state.info.impressioins
+            // };
+            // axios.post(url, data).then(res => {
+                // console.log('body:', res.data);
+            // })
+        // }
+
         const { info, message } = this.state;
 
         return (
             <form
-                action="Http://localhost/api/articles/create"
+                action="http://localhost/api/articles/create"
+                method="POST"
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -127,7 +144,7 @@ class SignUpForm extends Component {
                         className="form-control"
                         type="text"
                         name="Impressions"
-                        maxLength="10"
+                        maxLength="50"
                         value={info.Impressions}
                         onChange={e => handleChange(e)}
                         id="exampleFormControlTextarea1"
@@ -144,7 +161,7 @@ class SignUpForm extends Component {
                     className="btn btn-success"
                     style={{ margin: "10px" }}
                     disabled={!canSubmit()}
-                    onClick={() => submit()}
+                    onClick={() => submit(), () => postFormData()}
                 >
                     投稿する
                 </button>

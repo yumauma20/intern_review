@@ -6,9 +6,20 @@ class DetailModal extends Component {
         super(props);
         this.state = {
             //  idで検索apiを作成して1件だけ取得して表示したい
-            isLoaded: false,
-            reviewData: []
+            article: []
         };
+    }
+
+    componentDidMount() {
+    //   render直後に行いたい処理を書くところ
+        const url = `http://localhost/api/articles/detail/${this.props.id}`
+        axios.get(url).then((res) => {
+        this.setState({
+            article: res.data.article
+        });
+        },).catch(() => {
+            console.log('通信に失敗しました。')
+        });
     }
 
     render() {
@@ -32,7 +43,7 @@ class DetailModal extends Component {
                             会社名
                         </p>
                         <p style={{ fontSize: "25px", fontWeight: "bold" }}>
-                            {this.state.reviewData.company}
+                            {this.state.article.company}
                         </p>
                     </div>
 
@@ -45,7 +56,7 @@ class DetailModal extends Component {
                         >
                             期間
                         </p>
-                        <p>{this.state.reviewData.term}</p>
+                        <p>{this.state.article.term}</p>
                     </div>
 
                     <div style={{ textAlign: "center" }}>
@@ -57,7 +68,7 @@ class DetailModal extends Component {
                         >
                             業務内容
                         </p>
-                        <p>{this.state.reviewData.task}</p>
+                        <p>{this.state.article.task}</p>
                     </div>
                     <div style={{ textAlign: "center" }}>
                         <p
@@ -68,7 +79,7 @@ class DetailModal extends Component {
                         >
                             感想
                         </p>
-                        <p>{this.state.reviewData.impression}</p>
+                        <p>{this.state.article.impressions}</p>
                     </div>
 
                     <Link to="/" style={{ color: "white" }}>
