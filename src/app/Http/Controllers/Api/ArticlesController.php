@@ -6,19 +6,30 @@ use App\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticlesRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
   /**
    * 記事全件取得
-   * Todo: 指定した件数分取得できるように変更
+   * Todo: 指定した件数分取得できるように変更、keywordのバリデーションも行う
    * 
    * @return array json形式で記事データ全件取得
    */
   public function index()
   {
-    $articles = Article::all();
-    return response()->json(['articles' => $articles]);
+    $articles = DB::table('articles');
+
+    //keyword[]パラメータがなければ全件表示をする。
+    if(isset($_GET['keyword'])){
+      //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
+      foreach($_GET['keyword'] as $keyword){
+        $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
+      }
+    }
+
+    $result = $articles->get();
+    return response()->json(['articles' => $result]);
   }
 
   /**
