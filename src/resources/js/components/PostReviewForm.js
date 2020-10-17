@@ -1,22 +1,24 @@
 import React, { Component } from "react";
+
 // import Validation from "./validation";
-// import axios from "axios";
+// import axios from "axios"; なくてもなぜかいける笑
 
 class SignUpForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // todo　　term, user_idの追加
             info: {
                 companyName: "",
                 jobContent: "",
-                Impressions: ""
+                impressions: ""
             },
             message: {
                 companyName: "",
                 jobContent: "",
-                Impressions: ""
+                impressions: ""
             },
-            loading: false
+            loading: false,
         };
     }
 
@@ -37,7 +39,7 @@ class SignUpForm extends Component {
                     // [key]: Validation.formValidate(key, value, maxLength)
                 }
             });
-            console.log(this.state.info);
+            // console.log("handleChangeの" + this.state.info);
         };
 
         const canSubmit = () => {
@@ -61,18 +63,21 @@ class SignUpForm extends Component {
         };
 
         // フォームデータ登録非同期通信
-        // const postFormData = () => {
-            // const url = "http://localhost/api/articles/create";
-            // const data = {
-                // companyName: this.state.info.companyName,
-                // term: this.state.info.term,
-                // task: this.state.info.task,
-                // impressioins: this.state.info.impressioins
-            // };
-            // axios.post(url, data).then(res => {
-                // console.log('body:', res.data);
-            // })
-        // }
+        const postFormData = () => {
+            console.log("postFormDataです")
+            const url = "http://localhost/api/articles/create";
+            const data = {
+                // todo,user_idの追加
+                companyName: this.state.info.companyName,
+                term: "3day",
+                task: this.state.info.jobContent,
+                impressions: this.state.info.impressions,
+                user_id: "1"
+            };
+            axios.post(url, data).then(res => {
+                alert("記事の投稿に成功しました!!!!!!");
+            });
+        };
 
         const { info, message } = this.state;
 
@@ -143,16 +148,16 @@ class SignUpForm extends Component {
                     <textarea
                         className="form-control"
                         type="text"
-                        name="Impressions"
+                        name="impressions"
                         maxLength="50"
-                        value={info.Impressions}
+                        value={info.impressions}
                         onChange={e => handleChange(e)}
                         id="exampleFormControlTextarea1"
                         rows="3"
                     />
-                    {message.Impressions && (
+                    {message.impressions && (
                         <p style={{ color: "red", fontSize: 8 }}>
-                            {message.Impressions}
+                            {message.impressions}
                         </p>
                     )}
                 </div>
@@ -161,7 +166,7 @@ class SignUpForm extends Component {
                     className="btn btn-success"
                     style={{ margin: "10px" }}
                     disabled={!canSubmit()}
-                    onClick={() => submit(), () => postFormData()}
+                    onClick={postFormData}
                 >
                     投稿する
                 </button>
