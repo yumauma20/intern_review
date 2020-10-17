@@ -7,7 +7,7 @@ class SignUpForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // todo　　termの追加
+            // todo　　term, user_idの追加
             info: {
                 companyName: "",
                 jobContent: "",
@@ -65,12 +65,9 @@ class SignUpForm extends Component {
         // フォームデータ登録非同期通信
         const postFormData = () => {
             console.log("postFormDataです")
-            // postCompanyName = this.state.info.companyName;
-            // postJobContent = this.state.info.jobContent;
-            // postImpressions = this.state.info.impressions;
             const url = "http://localhost/api/articles/create";
             const data = {
-                // todo の追加
+                // todo,user_idの追加
                 companyName: this.state.info.companyName,
                 term: "3day",
                 task: this.state.info.jobContent,
@@ -78,8 +75,7 @@ class SignUpForm extends Component {
                 user_id: "1"
             };
             axios.post(url, data).then(res => {
-                // console.log('body:', res.data);
-                console.log("axios succeded!!");
+                alert("記事の投稿に成功しました!!!!!!");
             });
         };
 
