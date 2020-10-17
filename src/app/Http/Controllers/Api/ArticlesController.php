@@ -15,8 +15,8 @@ class ArticlesController extends Controller
 
   /**
    * 記事全件取得
-   * Todo: 指定した件数分取得できるように変更、keywordのバリデーションも行う
-   * $articles = DB::table('articles');はArticle::query();に置き換えもできる
+   * Todo: keyword,pageのバリデーションも行う
+   * May $articles = DB::table('articles');はArticle::query();に置き換えもできる
    * 
    * @return array json形式で記事データ全件取得
    */
