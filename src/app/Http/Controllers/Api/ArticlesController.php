@@ -24,6 +24,8 @@ class ArticlesController extends Controller
     if(isset($_GET['keyword'])){
       //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
       foreach($_GET['keyword'] as $keyword){
+        //半角スペースと全角スペースがあったら削除する。
+        $keyword = str_replace(array(" ", "　"), "", $keyword);
         $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
       }
     }
