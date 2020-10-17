@@ -12,6 +12,8 @@ class ArticlesController extends Controller
 {
   const DEFAULT_PAGE = 1;
   const ARTICLE_LIMIT = 6;
+  const MIN_PAGE = 1;
+  const MAX_PAGE = 200;
 
   /**
    * 記事全件取得
@@ -37,6 +39,9 @@ class ArticlesController extends Controller
     $page = self::DEFAULT_PAGE;
     if(isset($_GET['page'])){
       $page = (int)$_GET['page'];
+      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
+        $page = self::DEFAULT_PAGE;
+      }
     }
     $limit = self::ARTICLE_LIMIT;
     $offset = $limit * ($page - 1);
