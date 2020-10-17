@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
+  const DEFAULT_PAGE = 1;
+  const ARTICLE_LIMIT = 6;
+  const MIN_PAGE = 1;
+  const MAX_PAGE = 200;
+
   /**
    * 記事全件取得
-   * Todo: 指定した件数分取得できるように変更、keywordのバリデーションも行う
+   * Todo: keyword,pageのバリデーションも行う
+   * May $articles = DB::table('articles');はArticle::query();に置き換えもできる
    * 
    * @return array json形式で記事データ全件取得
    */
@@ -29,6 +35,18 @@ class ArticlesController extends Controller
         $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
       }
     }
+
+    $page = self::DEFAULT_PAGE;
+    if(isset($_GET['page'])){
+      $page = (int)$_GET['page'];
+      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
+        $page = self::DEFAULT_PAGE;
+      }
+    }
+    $limit = self::ARTICLE_LIMIT;
+    $offset = $limit * ($page - 1);
+    $articles->offset($offset);
+    $articles->limit($limit);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
