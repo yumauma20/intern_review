@@ -58,6 +58,6 @@ class ArticlesController extends Controller
     $article->impressions = $request->impressions;
     $article->user_id = $request->user_id;
     $article->save();
-    return redirect('/');
+    return;
   }
 }
