@@ -34,6 +34,7 @@ class UsersController extends Controller
     $password = $request->password;
     $user = User::where('email', $email)->first();
 
+    //DBに登録されているパスワードと送信したパスワードが一致していたらtrueを返す
     if($user && password_verify($password, $user->password)){
       return json_encode(true);
     }
