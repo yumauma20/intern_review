@@ -35,8 +35,8 @@ class UsersController extends Controller
     $user = User::where('email', $email)->first();
 
     if($user && password_verify($password, $user->password)){
-      return true;
+      return json_encode(true);
     }
-    return false;
+    return json_encode(false);
   }
 }
