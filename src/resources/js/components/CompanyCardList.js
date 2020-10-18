@@ -1,26 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import CompanyCard from "./CompanyCard";
-import axios from 'axios';
+import axios from "axios";
 
 class CompanyCardList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: [],
+            articles: []
         };
     }
 
     componentDidMount() {
-    //   render直後に行いたい処理を書くところ
+        //     //   render直後に行いたい処理を書くところ
         const url = "http://localhost/api/articles";
-        axios.get(url).then((res) => {
-        this.setState({
-            articles: res.data.articles
-        });
-        },).catch(() => {
-            console.log('通信に失敗しました。')
-        });
+        const queries = { page: 1 };
+        axios
+            .get(url, { params: queries })
+            .then(res => {
+                this.setState({
+                    articles: res.data.articles
+                });
+            })
+            .catch(() => {
+                console.log("通信に失敗しました。");
+            });
+        // this.setState({ articles: "unnko" });
     }
 
     render() {
