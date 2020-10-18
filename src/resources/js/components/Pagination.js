@@ -6,8 +6,8 @@ class PaginationComponent extends Component {
             const items = [];
             for (let n = 1; n <= number; n++) {
                 items.push(
-                    <li className="page-item" key={n}>
-                        <a className="page-link" href="/">
+                    <li className="page-item" key={n} onClick={this.setState(page: {n})}>
+                        <a className="page-link"　a href="http://......" onclick="return false;">
                             {n}
                         </a>
                     </li>
