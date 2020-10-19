@@ -23,4 +23,4 @@ Route::get('/articles/detail/{id}', 'Api\ArticlesController@detail');
 
 Route::post('/articles/create', 'Api\ArticlesController@create');
 
-Route::post('/register', 'Api\UsersController@register');
+// Route::post('/register', 'Api\UsersController@register');

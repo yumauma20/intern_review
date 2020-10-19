@@ -11,7 +11,7 @@ class UsersController extends Controller
   /**
    * 会員登録機能
    */
-  public function register(Request $request)
+  /* public function register(Request $request)
   {
     $user = new User();
     $hashed_password = password_hash($request->password, PASSWORD_DEFAULT);
@@ -20,5 +20,5 @@ class UsersController extends Controller
     $user->password = $hashed_password;
     $user->save();
     return;
-  }
+  } */
 }
