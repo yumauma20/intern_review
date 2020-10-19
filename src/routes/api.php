@@ -21,6 +21,14 @@ Route::get('/articles', 'Api\ArticlesController@index');
 
 Route::get('/articles/detail/{id}', 'Api\ArticlesController@detail');
 
-Route::post('/articles/create', 'Api\ArticlesController@create');
+Route::post('/register', 'Auth\RegisterController@register');
 
-// Route::post('/register', 'Api\UsersController@register');
+Route::post('/login', 'Auth\AuthController@login');
+
+Route::group(['middleware' => ['jwt.auth']], function () {
+
+  Route::post('/articles/create', 'Api\ArticlesController@create');
+
+  Route::post('/logout', 'Auth\AuthController@logout');
+
+});
