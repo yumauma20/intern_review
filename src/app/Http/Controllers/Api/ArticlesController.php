@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticlesRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
@@ -74,7 +75,7 @@ class ArticlesController extends Controller
     $article->term = $request->term;
     $article->task = $request->task;
     $article->impressions = $request->impressions;
-    $article->user_id = $request->user_id;
+    $article->user_id = Auth::id();
     $article->save();
     return;
   }
