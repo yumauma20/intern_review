@@ -42,7 +42,7 @@ class Validation {
                 return emailValidation(value);
             case "password":
                 return passwordValidation(value);
-            case "confirmPassword":
+            case "password_confirmation":
                 return confirmPasswordValidation(value);
             case "companyName":
             case "jobContent":

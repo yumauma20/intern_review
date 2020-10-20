@@ -6,14 +6,16 @@ class SignUpForm extends Component {
         super(props);
         this.state = {
             info: {
+                name: "",
                 email: "",
                 password: "",
-                confirmPassword: ""
+                password_confirmation: ""
             },
             message: {
+                name: "",
                 email: "",
                 password: "",
-                confirmPassword: ""
+                password_confirmation: ""
             },
             loading: false
         };
@@ -36,24 +38,75 @@ class SignUpForm extends Component {
             });
         };
 
-        const canSubmit = () => {
-            const { info, message, loading } = this.state;
+        // const emailValidation = email => {
+        //     if (!email) return "メールアドレスを入力してください";
 
-            const validInfo =
-                Object.values(info).filter(value => {
-                    return value === "";
-                }).length === 0;
-            const validMessage =
-                Object.values(message).filter(value => {
-                    return value !== "";
-                }).length === 0;
-            return validInfo && validMessage && !loading;
-        };
+        //     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        //     if (!regex.test(email))
+        //         return "正しい形式でメールアドレスを入力してください";
+
+        //     return "";
+        // };
+
+        // const passwordValidation = password => {
+        //     if (!password) return "パスワードを入力してください";
+        //     if (password.length < 8)
+        //         return "パスワードは8文字以上で入力してください";
+
+        //     return "";
+        // };
+
+        // const confirmPasswordValidation = confirmPassword => {
+        //     const password = document.getElementById("password").value;
+        //     console.log(confirmPassword);
+        //     console.log(password);
+        //     if (confirmPassword !== password) {
+        //         return "パスワードが一致していません";
+        //     }
+        //     return "";
+        // };
+
+        // const countValidation = (text, maxLength) => {
+        //     if (!text) return "入力してください";
+        //     if (text.length >= maxLength)
+        //         return maxLength + "文字以内で入力してください";
+
+        //     return "";
+        // };
+
+        // const canSubmit = () => {
+        //     const { info, message, loading } = this.state;
+
+        //     const validInfo =
+        //         Object.values(info).filter(value => {
+        //             return value === "";
+        //         }).length === 0;
+        //     const validMessage =
+        //         Object.values(message).filter(value => {
+        //             return value !== "";
+        //         }).length === 0;
+        //     return validInfo && validMessage && !loading;
+        // };
 
         // 連打されるのを防ぐ
         const submit = () => {
             this.setState({ loading: true });
             this.setState({ loading: false });
+        };
+
+        const registerUser = () => {
+            const url = "http://localhost/api/register";
+            const data = {
+                name: this.state.info.name,
+                email: this.state.info.email,
+                password: this.state.info.password,
+                password_confirmation: this.state.info.password_confirmation
+            };
+            axios.post(url, data).then(res => {
+                console.log(res);
+
+                alert("会員登録成功");
+            });
         };
 
         const { info, message } = this.state;
@@ -70,6 +123,23 @@ class SignUpForm extends Component {
                     style={{ margin: "10px" }}
                 >
                     新規登録
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputName1">UserName</label>
+                    <input
+                        type="name"
+                        name="name"
+                        className="form-control"
+                        id="exampleInputName"
+                        placeholder="Enter Name"
+                        value={info.name}
+                        onChange={e => handleChange(e)}
+                    />
+                    {message.name && (
+                        <p style={{ color: "red", fontSize: 8 }}>
+                            {message.name}
+                        </p>
+                    )}
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
@@ -115,16 +185,16 @@ class SignUpForm extends Component {
                     </label>
                     <input
                         type="password"
-                        name="confirmPassword"
+                        name="password_confirmation"
                         className="form-control"
-                        id="confirmPassword"
+                        id="password_confirmation"
                         placeholder="Confirm Password"
-                        value={info.confirmPassword}
+                        value={info.password_confirmation}
                         onChange={e => handleChange(e)}
                     />
-                    {message.confirmPassword && (
+                    {message.password_confirmation && (
                         <p style={{ color: "red", fontSize: 8 }}>
-                            {message.confirmPassword}
+                            {message.password_confirmation}
                         </p>
                     )}
                 </div>
@@ -133,7 +203,7 @@ class SignUpForm extends Component {
                     className="btn btn-success"
                     style={{ margin: "10px" }}
                     disabled={!canSubmit()}
-                    onClick={() => submit()}
+                    onClick={registerUser}
                 >
                     登録する
                 </button>
