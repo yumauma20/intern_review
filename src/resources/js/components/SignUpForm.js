@@ -22,71 +22,108 @@ class SignUpForm extends Component {
     }
 
     render() {
-        const handleChange = e => {
+        const userValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
             const { info, message } = this.state;
+
+            let mes = "";
+            if (!value) mes = "入力してください";
+            if (value.length > 255) mes = "255文字以内で入力してください";
+
             this.setState({
                 info: {
                     ...info,
                     [key]: value
                 },
                 message: {
-                    ...message
-                    // [key]: Validation.formValidate(key, value)
+                    ...message,
+                    [key]: mes
                 }
             });
         };
 
-        // const emailValidation = email => {
-        //     if (!email) return "メールアドレスを入力してください";
+        const emailValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
 
-        //     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        //     if (!regex.test(email))
-        //         return "正しい形式でメールアドレスを入力してください";
+            let mes = "";
+            if (!value) mes = "メールアドレスを入力してください";
 
-        //     return "";
-        // };
+            const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (!regex.test(value))
+                mes = "正しい形式でメールアドレスを入力してください";
 
-        // const passwordValidation = password => {
-        //     if (!password) return "パスワードを入力してください";
-        //     if (password.length < 8)
-        //         return "パスワードは8文字以上で入力してください";
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
 
-        //     return "";
-        // };
+        const passwordValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
 
-        // const confirmPasswordValidation = confirmPassword => {
-        //     const password = document.getElementById("password").value;
-        //     console.log(confirmPassword);
-        //     console.log(password);
-        //     if (confirmPassword !== password) {
-        //         return "パスワードが一致していません";
-        //     }
-        //     return "";
-        // };
+            let mes = "";
+            if (value.length < 8)
+                mes = "パスワードは8文字以上で入力してください";
 
-        // const countValidation = (text, maxLength) => {
-        //     if (!text) return "入力してください";
-        //     if (text.length >= maxLength)
-        //         return maxLength + "文字以内で入力してください";
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
 
-        //     return "";
-        // };
+        const confirmPasswordValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
 
-        // const canSubmit = () => {
-        //     const { info, message, loading } = this.state;
+            const password = document.getElementById("js-password").value;
+            let mes = "";
+            if (value !== password) {
+                mes = "パスワードが一致していません";
+            }
 
-        //     const validInfo =
-        //         Object.values(info).filter(value => {
-        //             return value === "";
-        //         }).length === 0;
-        //     const validMessage =
-        //         Object.values(message).filter(value => {
-        //             return value !== "";
-        //         }).length === 0;
-        //     return validInfo && validMessage && !loading;
-        // };
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
+
+        const canSubmit = () => {
+            const { info, message, loading } = this.state;
+
+            const validInfo =
+                Object.values(info).filter(value => {
+                    return value === "";
+                }).length === 0;
+            const validMessage =
+                Object.values(message).filter(value => {
+                    return value !== "";
+                }).length === 0;
+            return validInfo && validMessage && !loading;
+        };
 
         // 連打されるのを防ぐ
         const submit = () => {
@@ -103,8 +140,6 @@ class SignUpForm extends Component {
                 password_confirmation: this.state.info.password_confirmation
             };
             axios.post(url, data).then(res => {
-                console.log(res);
-
                 alert("会員登録成功");
             });
         };
@@ -133,7 +168,7 @@ class SignUpForm extends Component {
                         id="exampleInputName"
                         placeholder="Enter Name"
                         value={info.name}
-                        onChange={e => handleChange(e)}
+                        onChange={e => userValidation(e)}
                     />
                     {message.name && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -151,7 +186,7 @@ class SignUpForm extends Component {
                         // aria-describedby="emailHelp"
                         placeholder="Enter email"
                         value={info.email}
-                        onChange={e => handleChange(e)}
+                        onChange={e => emailValidation(e)}
                     />
                     {message.email && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -168,10 +203,10 @@ class SignUpForm extends Component {
                         type="password"
                         name="password"
                         className="form-control"
-                        id="password"
+                        id="js-password"
                         placeholder="Password"
                         value={info.password}
-                        onChange={e => handleChange(e)}
+                        onChange={e => passwordValidation(e)}
                     />
                     {message.password && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -190,7 +225,7 @@ class SignUpForm extends Component {
                         id="password_confirmation"
                         placeholder="Confirm Password"
                         value={info.password_confirmation}
-                        onChange={e => handleChange(e)}
+                        onChange={e => confirmPasswordValidation(e)}
                     />
                     {message.password_confirmation && (
                         <p style={{ color: "red", fontSize: 8 }}>
