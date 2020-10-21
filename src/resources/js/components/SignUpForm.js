@@ -6,32 +6,107 @@ class SignUpForm extends Component {
         super(props);
         this.state = {
             info: {
+                name: "",
                 email: "",
                 password: "",
-                confirmPassword: ""
+                password_confirmation: ""
             },
             message: {
+                name: "",
                 email: "",
                 password: "",
-                confirmPassword: ""
+                password_confirmation: ""
             },
             loading: false
         };
     }
 
     render() {
-        const handleChange = e => {
+        const userValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
             const { info, message } = this.state;
+
+            let mes = "";
+            if (!value) mes = "入力してください";
+            if (value.length > 255) mes = "255文字以内で入力してください";
+
             this.setState({
                 info: {
                     ...info,
                     [key]: value
                 },
                 message: {
-                    ...message
-                    // [key]: Validation.formValidate(key, value)
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
+
+        const emailValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
+
+            let mes = "";
+            if (!value) mes = "メールアドレスを入力してください";
+
+            const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (!regex.test(value))
+                mes = "正しい形式でメールアドレスを入力してください";
+
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
+
+        const passwordValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
+
+            let mes = "";
+            if (value.length < 8)
+                mes = "パスワードは8文字以上で入力してください";
+
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
+        };
+
+        const confirmPasswordValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+            const { info, message } = this.state;
+
+            const password = document.getElementById("js-password").value;
+            let mes = "";
+            if (value !== password) {
+                mes = "パスワードが一致していません";
+            }
+
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
                 }
             });
         };
@@ -56,6 +131,19 @@ class SignUpForm extends Component {
             this.setState({ loading: false });
         };
 
+        const registerUser = () => {
+            const url = "http://localhost/api/register";
+            const data = {
+                name: this.state.info.name,
+                email: this.state.info.email,
+                password: this.state.info.password,
+                password_confirmation: this.state.info.password_confirmation
+            };
+            axios.post(url, data).then(res => {
+                alert("会員登録成功");
+            });
+        };
+
         const { info, message } = this.state;
         return (
             <form
@@ -72,6 +160,23 @@ class SignUpForm extends Component {
                     新規登録
                 </div>
                 <div className="form-group">
+                    <label htmlFor="exampleInputName1">UserName</label>
+                    <input
+                        type="name"
+                        name="name"
+                        className="form-control"
+                        id="exampleInputName"
+                        placeholder="Enter Name"
+                        value={info.name}
+                        onChange={e => userValidation(e)}
+                    />
+                    {message.name && (
+                        <p style={{ color: "red", fontSize: 8 }}>
+                            {message.name}
+                        </p>
+                    )}
+                </div>
+                <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
                     <input
                         type="email"
@@ -81,7 +186,7 @@ class SignUpForm extends Component {
                         // aria-describedby="emailHelp"
                         placeholder="Enter email"
                         value={info.email}
-                        onChange={e => handleChange(e)}
+                        onChange={e => emailValidation(e)}
                     />
                     {message.email && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -98,10 +203,10 @@ class SignUpForm extends Component {
                         type="password"
                         name="password"
                         className="form-control"
-                        id="password"
+                        id="js-password"
                         placeholder="Password"
                         value={info.password}
-                        onChange={e => handleChange(e)}
+                        onChange={e => passwordValidation(e)}
                     />
                     {message.password && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -115,16 +220,16 @@ class SignUpForm extends Component {
                     </label>
                     <input
                         type="password"
-                        name="confirmPassword"
+                        name="password_confirmation"
                         className="form-control"
-                        id="confirmPassword"
+                        id="password_confirmation"
                         placeholder="Confirm Password"
-                        value={info.confirmPassword}
-                        onChange={e => handleChange(e)}
+                        value={info.password_confirmation}
+                        onChange={e => confirmPasswordValidation(e)}
                     />
-                    {message.confirmPassword && (
+                    {message.password_confirmation && (
                         <p style={{ color: "red", fontSize: 8 }}>
-                            {message.confirmPassword}
+                            {message.password_confirmation}
                         </p>
                     )}
                 </div>
@@ -133,7 +238,7 @@ class SignUpForm extends Component {
                     className="btn btn-success"
                     style={{ margin: "10px" }}
                     disabled={!canSubmit()}
-                    onClick={() => submit()}
+                    onClick={registerUser}
                 >
                     登録する
                 </button>
