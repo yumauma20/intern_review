@@ -82,19 +82,29 @@ class SignUpForm extends Component {
             this.setState({ loading: false });
         };
 
-        /*    const registerUser = () => {
-            const url = "http://localhost/api/register";
+        const loginUser = () => {
+            const url = "http://localhost/api/login";
             const data = {
-                name: this.state.info.name,
                 email: this.state.info.email,
-                password: this.state.info.password,
-                password_confirmation: this.state.info.password_confirmation
+                password: this.state.info.password
             };
-            axios.post(url, data).then(res => {
-                alert("会員登録成功");
-            });
+
+            axios
+                .post(url, data)
+                .then(res => {
+                    //通信に成功したらアクセストークン取得
+                    const token = res.data.access_token;
+                    //ヘッダーにアクセストークン入れる
+                    axios.defaults.headers.common["Authorization"] = "";
+                    axios.defaults.headers.common["Authorization"] =
+                        "Bearer " + token;
+                    console.log(axios.defaults.headers.common["Authorization"]);
+                })
+                .catch(res => {
+                    console.log("ログイン失敗");
+                });
         };
- */
+
         const { info, message } = this.state;
         return (
             <form
@@ -150,7 +160,7 @@ class SignUpForm extends Component {
                     className="btn btn-success"
                     style={{ margin: "10px" }}
                     disabled={!canSubmit()}
-                    // onClick={registerUser}
+                    onClick={loginUser}
                 >
                     登録する
                 </button>
