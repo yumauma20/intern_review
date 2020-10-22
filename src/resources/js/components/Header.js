@@ -26,8 +26,11 @@ class Header extends Component {
                     </a>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item nav-link active">
+                            <li className="nav-item nav-link">
                                 <Link to="/SignUp">新規登録</Link>
+                            </li>
+                            <li className="nav-item nav-link">
+                                <Link to="/Login">ログイン</Link>
                             </li>
                             <li className="nav-item nav-link">
                                 <Link to="/">投稿一覧</Link>
