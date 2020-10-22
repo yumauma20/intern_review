@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../components/Header";
 import SignUpForm from "../components/SignUpForm";
 
-class SognUpPage extends Component {
+class SignUpPage extends Component {
     render() {
         return (
             <>
@@ -12,4 +12,4 @@ class SognUpPage extends Component {
         );
     }
 }
-export default SognUpPage;
+export default SignUpPage;
