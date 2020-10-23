@@ -84,3 +84,16 @@ node_modules と package-lock.json を 削除する。
 ## devtool failed to sourcemap エラーが出たら...
 
 [chrome の設定から enable javascript sourcemap のチェックを外す](https://stackoverflow.com/questions/61339968/devtools-failed-to-load-sourcemap-could-not-load-content-for-chrome-extension)
+
+## 認証まわり（jwt） エラーが出たら...
+[LaravelでJWT認証！ jwt-auth 導入手順](https://blog.proglearn.com/2020/04/21/%E3%80%902020%E5%B9%B44%E6%9C%88-%E6%99%82%E7%82%B9%E3%80%91laravel%E3%81%A7jwt%E8%AA%8D%E8%A8%BC%EF%BC%81-jwt-auth-%E5%B0%8E%E5%85%A5%E6%89%8B%E9%A0%86/)
+
+```
+$ composer require tymon/jwt-auth
+```
+```
+$ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+```
+```
+$ php artisan jwt:secret
+```
