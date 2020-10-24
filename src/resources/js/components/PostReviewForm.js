@@ -82,8 +82,6 @@ class SignUpForm extends Component {
 
         return (
             <form
-                action="http://localhost/api/articles/create"
-                method="POST"
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
