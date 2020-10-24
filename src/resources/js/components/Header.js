@@ -27,34 +27,18 @@ class Header extends Component {
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item nav-link">
-                                <Link to="/SignUp">新規登録</Link>
-                            </li>
-                            <li className="nav-item nav-link">
-                                <Link to="/Login">ログイン</Link>
-                            </li>
-                            <li className="nav-item nav-link">
                                 <Link to="/">投稿一覧</Link>
                             </li>
                             <li className="nav-item nav-link">
                                 <Link to="/Post">レビューを書く</Link>
                             </li>
+                            <li className="nav-item nav-link">
+                                <Link to="/SignUp">新規登録</Link>
+                            </li>
+                            <li className="nav-item nav-link">
+                                <Link to="/Login">ログイン</Link>
+                            </li>
                         </ul>
-                        <nav className="navbar navbar-light">
-                            <form className="form-inline">
-                                <input
-                                    className="form-control mr-sm-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                />
-                                <button
-                                    className="btn btn-outline-success my-2 my-sm-0"
-                                    type="submit"
-                                >
-                                    Search
-                                </button>
-                            </form>
-                        </nav>
                     </div>
                 </nav>
             </div>
