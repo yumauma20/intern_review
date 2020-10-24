@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import Validation from "./validation";
 // import axios from "axios"; なくてもなぜかいける笑
 
-class SignUpForm extends Component {
+class PostReviewForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -175,4 +175,4 @@ class SignUpForm extends Component {
         );
     }
 }
-export default SignUpForm;
+export default PostReviewForm;
