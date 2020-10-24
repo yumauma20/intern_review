@@ -121,6 +121,7 @@ class SignUpForm extends Component {
                         value={info.term}
                         onChange={e => handleChange(e)}
                     >
+                        <option>選択してください</option>
                         <option value="1">1日</option>
                         <option value="2">1週間未満</option>
                         <option value="3">1ヶ月未満</option>
