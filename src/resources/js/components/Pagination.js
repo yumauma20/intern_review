@@ -6,10 +6,13 @@ class PaginationComponent extends Component {
             const items = [];
             for (let n = 1; n <= number; n++) {
                 items.push(
-                    <li className="page-item" key={n}>
-                        <a className="page-link" href="/">
-                            {n}
-                        </a>
+                    <li
+                        className="page-link"
+                        key={n}
+                        value={n}
+                        onClick={e => this.props.getCurrentPageData(e)}
+                    >
+                        {n}
                     </li>
                 );
             }

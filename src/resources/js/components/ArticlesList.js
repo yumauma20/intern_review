@@ -7,7 +7,8 @@ class ArticlesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: []
+            articles: [],
+            page: 1
         };
     }
 
@@ -42,6 +43,9 @@ class ArticlesList extends Component {
                 }
             }
 
+            //指定したページのデータを取得
+            url.searchParams.set("page", this.state.page);
+
             axios
                 .get(url.href)
                 .then(res => {
@@ -54,6 +58,17 @@ class ArticlesList extends Component {
                 });
         };
 
+        const getCurrentPageData = e => {
+            this.setState(
+                {
+                    page: e.target.value
+                },
+                () => {
+                    articleDataGet();
+                }
+            );
+        };
+
         return (
             <>
                 <SearchForm searchArticles={articleDataGet} />
@@ -62,7 +77,7 @@ class ArticlesList extends Component {
                         <CompanyCardList articles={this.state.articles} />
                     </div>
                 </div>
-                <Pagination />
+                <Pagination getCurrentPageData={getCurrentPageData} />
             </>
         );
     }
