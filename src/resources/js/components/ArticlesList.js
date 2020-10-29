@@ -61,7 +61,7 @@ class ArticlesList extends Component {
         const getCurrentPageData = e => {
             this.setState(
                 {
-                    page: e.target.value
+                    page: e.n
                 },
                 () => {
                     articleDataGet();
