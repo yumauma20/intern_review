@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { loginAction } from "../loginAction";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class SignUpForm extends Component {
     }
 
     render() {
+        console.log(this.props.LoggedIn);
         const emailValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
@@ -99,6 +102,7 @@ class SignUpForm extends Component {
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + token;
                     console.log(axios.defaults.headers.common["Authorization"]);
+                    this.props.loginAction();
                 })
                 .catch(res => {
                     console.log("ログイン失敗");
@@ -168,4 +172,15 @@ class SignUpForm extends Component {
         );
     }
 }
-export default SignUpForm;
+
+const mapStateToProps = state => ({
+    LoggedIn: state.LoggedIn
+});
+
+const mapDispatchToProps = dispatch => ({
+    loginAction: () => dispatch(loginAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+
+// export default SignUpForm;

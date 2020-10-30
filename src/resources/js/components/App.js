@@ -7,8 +7,8 @@ import PostReviewPage from "../pages/PostReviewPage";
 import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LoginPage";
 import DetailPage from "../pages/DetailPage";
-
-// import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Provider } from "react-redux";
+import store from "../store";
 
 class App extends Component {
     render() {
@@ -24,6 +24,9 @@ class App extends Component {
     }
 }
 
-if (document.getElementById("app")) {
-    ReactDOM.render(<App />, document.getElementById("app"));
-}
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("app")
+);
