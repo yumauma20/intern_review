@@ -46,7 +46,6 @@ class ArticlesController extends Controller
     $articles->where('user_id',$user);
 
     $this->articleSearch($articles);
-    $this->pagination($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
