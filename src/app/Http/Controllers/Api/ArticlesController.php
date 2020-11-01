@@ -56,6 +56,35 @@ class ArticlesController extends Controller
   }
 
   /**
+   * 記事1件取得
+   * 
+   * @param $id int 記事のID
+   * @return object 1件分の記事データ
+   */
+  public function detail($id)
+  {
+    $articles = Article::find($id);
+    // $this->joinArticlesUsersTable($articles);
+    // $this->articleDataGet($articles);
+    return response()->json(['article' => $articles]);
+  }
+
+  /**
+   * 記事投稿機能
+   */
+  public function create(ArticlesRequest $request)
+  {
+    $article = new Article();
+    $article->company = $request->companyName;
+    $article->term = $request->term;
+    $article->task = $request->task;
+    $article->impressions = $request->impressions;
+    $article->user_id = Auth::id();
+    $article->save();
+    return;
+  }
+
+  /**
    * 記事の検索機能
    */
   public function articleSearch($articles)
@@ -110,32 +139,5 @@ class ArticlesController extends Controller
       'articles.impressions',
       'users.name'
     );
-  }
-
-  /**
-   * 記事1件取得
-   * 
-   * @param $id int 記事のID
-   * @return object 1件分の記事データ
-   */
-  public function detail($id)
-  {
-    $article = Article::find($id);
-    return response()->json(['article' => $article]);
-  }
-
-  /**
-   * 記事投稿機能
-   */
-  public function create(ArticlesRequest $request)
-  {
-    $article = new Article();
-    $article->company = $request->companyName;
-    $article->term = $request->term;
-    $article->task = $request->task;
-    $article->impressions = $request->impressions;
-    $article->user_id = Auth::id();
-    $article->save();
-    return;
   }
 }
