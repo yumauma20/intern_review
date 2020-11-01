@@ -83,6 +83,17 @@ class DetailModal extends Component {
                         </p>
                         <p>{this.state.article.impressions}</p>
                     </div>
+                    <div style={{ textAlign: "center" }}>
+                        <p
+                            style={{
+                                textDecoration: "underline",
+                                fontSize: "25px"
+                            }}
+                        >
+                            投稿者
+                        </p>
+                        <p>{this.state.article.name}</p>
+                    </div>
 
                     <Link to="/" style={{ color: "white" }}>
                         <div
