@@ -1,0 +1,6 @@
+src/public/css
+src/public/js
+docker/db/data
+.zpreztorc
+.vscode
+src/composer.lock
