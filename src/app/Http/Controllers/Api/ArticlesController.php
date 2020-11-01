@@ -18,7 +18,6 @@ class ArticlesController extends Controller
 
   /**
    * 記事全件取得
-   * Todo: keyword,pageのバリデーションも行う
    * May $articles = DB::table('articles');はArticle::query();に置き換えもできる
    * 
    * @return array json形式で記事データ全件取得
@@ -27,7 +26,39 @@ class ArticlesController extends Controller
   {
     $articles = DB::table('articles');
 
-    //keyword[]パラメータがなければ全件表示をする。
+    $this->articleSearch($articles);
+    $this->pagination($articles);
+
+    $result = $articles->get();
+    return response()->json(['articles' => $result]);
+  }
+
+  /**
+   * ログインしてるユーザーの記事全件取得
+   * 
+   * @return array json形式で記事データ全件取得
+   */
+  public function myArticles()
+  {
+    $articles = DB::table('articles');
+
+    $user = Auth::id();
+    $articles->where('user_id',$user);
+
+    $this->articleSearch($articles);
+
+    $result = $articles->get();
+    return response()->json(['articles' => $result]);
+  }
+
+  /**
+   * 記事の検索機能
+   * 
+   * @param $articles articlesテーブルのインスタンス
+   * @return $articles articlesテーブルのインスタンス
+   */
+  public function articleSearch($articles)
+  {
     if(isset($_GET['keyword'])){
       //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
       foreach($_GET['keyword'] as $keyword){
@@ -36,7 +67,17 @@ class ArticlesController extends Controller
         $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
       }
     }
+    return $articles;
+  }
 
+  /**
+   * ページネーション機能
+   * 
+   * @param $articles articlesテーブルのインスタンス
+   * @return $articles articlesテーブルのインスタンス
+   */
+  public function pagination($articles)
+  {
     $page = self::DEFAULT_PAGE;
     if(isset($_GET['page'])){
       $page = (int)$_GET['page'];
@@ -49,8 +90,7 @@ class ArticlesController extends Controller
     $articles->offset($offset);
     $articles->limit($limit);
 
-    $result = $articles->get();
-    return response()->json(['articles' => $result]);
+    return $articles;
   }
 
   /**
