@@ -28,6 +28,8 @@ class ArticlesController extends Controller
 
     $this->articleSearch($articles);
     $this->pagination($articles);
+    $this->joinArticlesUsersTable($articles);
+    $this->articleDataGet($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
@@ -46,51 +48,11 @@ class ArticlesController extends Controller
     $articles->where('user_id',$user);
 
     $this->articleSearch($articles);
+    $this->joinArticlesUsersTable($articles);
+    $this->articleDataGet($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
-  }
-
-  /**
-   * 記事の検索機能
-   * 
-   * @param $articles articlesテーブルのインスタンス
-   * @return $articles articlesテーブルのインスタンス
-   */
-  public function articleSearch($articles)
-  {
-    if(isset($_GET['keyword'])){
-      //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
-      foreach($_GET['keyword'] as $keyword){
-        //半角スペースと全角スペースがあったら削除する。
-        $keyword = str_replace(array(" ", "　"), "", $keyword);
-        $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
-      }
-    }
-    return $articles;
-  }
-
-  /**
-   * ページネーション機能
-   * 
-   * @param $articles articlesテーブルのインスタンス
-   * @return $articles articlesテーブルのインスタンス
-   */
-  public function pagination($articles)
-  {
-    $page = self::DEFAULT_PAGE;
-    if(isset($_GET['page'])){
-      $page = (int)$_GET['page'];
-      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
-        $page = self::DEFAULT_PAGE;
-      }
-    }
-    $limit = self::ARTICLE_LIMIT;
-    $offset = $limit * ($page - 1);
-    $articles->offset($offset);
-    $articles->limit($limit);
-
-    return $articles;
   }
 
   /**
@@ -101,8 +63,10 @@ class ArticlesController extends Controller
    */
   public function detail($id)
   {
-    $article = Article::find($id);
-    return response()->json(['article' => $article]);
+    $articles = Article::find($id);
+    // $this->joinArticlesUsersTable($articles);
+    // $this->articleDataGet($articles);
+    return response()->json(['article' => $articles]);
   }
 
   /**
@@ -118,5 +82,62 @@ class ArticlesController extends Controller
     $article->user_id = Auth::id();
     $article->save();
     return;
+  }
+
+  /**
+   * 記事の検索機能
+   */
+  public function articleSearch($articles)
+  {
+    if(isset($_GET['keyword'])){
+      //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
+      foreach($_GET['keyword'] as $keyword){
+        //半角スペースと全角スペースがあったら削除する。
+        $keyword = str_replace(array(" ", "　"), "", $keyword);
+        $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
+      }
+    }
+  }
+
+  /**
+   * ページネーション機能
+   */
+  public function pagination($articles)
+  {
+    $page = self::DEFAULT_PAGE;
+    if(isset($_GET['page'])){
+      $page = (int)$_GET['page'];
+      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
+        $page = self::DEFAULT_PAGE;
+      }
+    }
+    $limit = self::ARTICLE_LIMIT;
+    $offset = $limit * ($page - 1);
+    $articles->offset($offset);
+    $articles->limit($limit);
+  }
+
+  /**
+   * articlesテーブルとusersテーブルの結合
+   */
+  public function joinArticlesUsersTable($articles)
+  {
+    $articles->leftjoin('users','articles.user_id','=','users.id');
+  }
+
+  /**
+   * 記事データに必要な情報を取得
+   */
+
+  public function articleDataGet($articles)
+  {
+    $articles->select(
+      'articles.id',
+      'articles.company',
+      'articles.term',
+      'articles.task',
+      'articles.impressions',
+      'users.name'
+    );
   }
 }
