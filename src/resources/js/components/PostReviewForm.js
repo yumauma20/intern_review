@@ -3,22 +3,23 @@ import React, { Component } from "react";
 // import Validation from "./validation";
 // import axios from "axios"; なくてもなぜかいける笑
 
-class SignUpForm extends Component {
+class PostReviewForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // todo　　term, user_idの追加
             info: {
                 companyName: "",
+                term: "",
                 jobContent: "",
                 impressions: ""
             },
             message: {
                 companyName: "",
+                term: "",
                 jobContent: "",
                 impressions: ""
             },
-            loading: false,
+            loading: false
         };
     }
 
@@ -64,15 +65,13 @@ class SignUpForm extends Component {
 
         // フォームデータ登録非同期通信
         const postFormData = () => {
-            console.log("postFormDataです")
+            console.log("postFormDataです");
             const url = "http://localhost/api/articles/create";
             const data = {
-                // todo,user_idの追加
                 companyName: this.state.info.companyName,
-                term: "3day",
+                term: this.state.info.term,
                 task: this.state.info.jobContent,
-                impressions: this.state.info.impressions,
-                user_id: "1"
+                impressions: this.state.info.impressions
             };
             axios.post(url, data).then(res => {
                 alert("記事の投稿に成功しました!!!!!!");
@@ -83,8 +82,6 @@ class SignUpForm extends Component {
 
         return (
             <form
-                action="http://localhost/api/articles/create"
-                method="POST"
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -118,12 +115,16 @@ class SignUpForm extends Component {
                     <select
                         className="form-control"
                         id="exampleFormControlSelect1"
+                        name="term"
+                        value={info.term}
+                        onChange={e => handleChange(e)}
                     >
-                        <option>1日</option>
-                        <option>1週間未満</option>
-                        <option>1ヶ月未満</option>
-                        <option>3ヶ月未満</option>
-                        <option>3ヶ月以上</option>
+                        <option>選択してください</option>
+                        <option value="1">1日</option>
+                        <option value="2">1週間未満</option>
+                        <option value="3">1ヶ月未満</option>
+                        <option value="4">3ヶ月未満</option>
+                        <option value="5">3ヶ月以上</option>
                     </select>
                 </div>
                 <div className="form-group">
@@ -174,4 +175,4 @@ class SignUpForm extends Component {
         );
     }
 }
-export default SignUpForm;
+export default PostReviewForm;

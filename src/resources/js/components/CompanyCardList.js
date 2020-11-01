@@ -1,32 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import CompanyCard from "./CompanyCard";
-import axios from 'axios';
+// import { connect } from "react-redux";
 
 class CompanyCardList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            articles: [],
-        };
-    }
-
-    componentDidMount() {
-    //   render直後に行いたい処理を書くところ
-        const url = "http://localhost/api/articles";
-        axios.get(url).then((res) => {
-        this.setState({
-            articles: res.data.articles
-        });
-        },).catch(() => {
-            console.log('通信に失敗しました。')
-        });
-    }
-
     render() {
+        // console.log(this.props.LoggedIn);
         return (
             <>
-                {this.state.articles.map(e => (
+                {this.props.articles.map(e => (
                     <CompanyCard
                         key={e.id}
                         id={e.id}
@@ -39,4 +21,12 @@ class CompanyCardList extends Component {
         );
     }
 }
+
+// reduxでのログイン保持 #57_loginkeep
+// const mapStateToProps = state => ({
+//     LoggedIn: state.LoggedIn
+// });
+
+// export default connect(mapStateToProps)(CompanyCardList);
+
 export default CompanyCardList;
