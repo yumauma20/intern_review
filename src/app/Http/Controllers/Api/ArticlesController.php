@@ -18,7 +18,6 @@ class ArticlesController extends Controller
 
   /**
    * 記事全件取得
-   * Todo: keyword,pageのバリデーションも行う
    * May $articles = DB::table('articles');はArticle::query();に置き換えもできる
    * 
    * @return array json形式で記事データ全件取得
@@ -48,6 +47,22 @@ class ArticlesController extends Controller
     $offset = $limit * ($page - 1);
     $articles->offset($offset);
     $articles->limit($limit);
+
+    $result = $articles->get();
+    return response()->json(['articles' => $result]);
+  }
+
+  /**
+   * ログインしてるユーザーの記事全件取得
+   * 
+   * @return array json形式で記事データ全件取得
+   */
+  public function myArticles()
+  {
+    $articles = DB::table('articles');
+
+    $user = Auth::id();
+    $articles->where('user_id',$user);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
