@@ -26,27 +26,8 @@ class ArticlesController extends Controller
   {
     $articles = DB::table('articles');
 
-    //keyword[]パラメータがなければ全件表示をする。
-    if(isset($_GET['keyword'])){
-      //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
-      foreach($_GET['keyword'] as $keyword){
-        //半角スペースと全角スペースがあったら削除する。
-        $keyword = str_replace(array(" ", "　"), "", $keyword);
-        $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
-      }
-    }
-
-    $page = self::DEFAULT_PAGE;
-    if(isset($_GET['page'])){
-      $page = (int)$_GET['page'];
-      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
-        $page = self::DEFAULT_PAGE;
-      }
-    }
-    $limit = self::ARTICLE_LIMIT;
-    $offset = $limit * ($page - 1);
-    $articles->offset($offset);
-    $articles->limit($limit);
+    $this->articleSearch($articles);
+    $this->pagination($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
@@ -64,8 +45,53 @@ class ArticlesController extends Controller
     $user = Auth::id();
     $articles->where('user_id',$user);
 
+    $this->articleSearch($articles);
+    $this->pagination($articles);
+
     $result = $articles->get();
     return response()->json(['articles' => $result]);
+  }
+
+  /**
+   * 記事の検索機能
+   * 
+   * @param $articles articlesテーブルのインスタンス
+   * @return $articles articlesテーブルのインスタンス
+   */
+  public function articleSearch($articles)
+  {
+    if(isset($_GET['keyword'])){
+      //keyword[]パラメータがcompany,task,impressionsカラムのいずれかにマッチしたものをAND条件で取り出す。
+      foreach($_GET['keyword'] as $keyword){
+        //半角スペースと全角スペースがあったら削除する。
+        $keyword = str_replace(array(" ", "　"), "", $keyword);
+        $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
+      }
+    }
+    return $articles;
+  }
+
+  /**
+   * ページネーション機能
+   * 
+   * @param $articles articlesテーブルのインスタンス
+   * @return $articles articlesテーブルのインスタンス
+   */
+  public function pagination($articles)
+  {
+    $page = self::DEFAULT_PAGE;
+    if(isset($_GET['page'])){
+      $page = (int)$_GET['page'];
+      if($page < self::MIN_PAGE || $page > self::MAX_PAGE){
+        $page = self::DEFAULT_PAGE;
+      }
+    }
+    $limit = self::ARTICLE_LIMIT;
+    $offset = $limit * ($page - 1);
+    $articles->offset($offset);
+    $articles->limit($limit);
+
+    return $articles;
   }
 
   /**
