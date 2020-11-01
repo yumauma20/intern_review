@@ -11,19 +11,21 @@ class DetailModal extends Component {
     }
 
     componentDidMount() {
-    //   render直後に行いたい処理を書くところ
-        const url = `http://localhost/api/articles/detail/${this.props.id}`
-        axios.get(url).then((res) => {
-        this.setState({
-            article: res.data.article
-        });
-        },).catch(() => {
-            console.log('通信に失敗しました。')
-        });
+        //   render直後に行いたい処理を書くところ
+        const url = `http://localhost/api/articles/detail/${this.props.id}`;
+        axios
+            .get(url)
+            .then(res => {
+                this.setState({
+                    article: res.data.article[0]
+                });
+            })
+            .catch(() => {
+                console.log("通信に失敗しました。");
+            });
     }
 
     render() {
-        console.log("detalmodelのが受け取ったid" + this.props.id);
         return (
             <>
                 <div
