@@ -142,4 +142,18 @@ class ArticlesController extends Controller
       'users.name'
     );
   }
+
+  /**
+   * 記事編集機能
+   */
+  public function edit($id, ArticlesRequest $request)
+  {
+    $article = Article::find($id);
+    $article->company = $request->companyName;
+    $article->term = $request->term;
+    $article->task = $request->task;
+    $article->impressions = $request->impressions;
+    $article->save();
+    return;
+  }
 }
