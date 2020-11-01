@@ -63,10 +63,12 @@ class ArticlesController extends Controller
    */
   public function detail($id)
   {
-    $articles = Article::find($id);
-    // $this->joinArticlesUsersTable($articles);
-    // $this->articleDataGet($articles);
-    return response()->json(['article' => $articles]);
+    $articles = DB::table('articles');
+    $articles->where('articles.id','=',$id);
+    $this->joinArticlesUsersTable($articles);
+    $this->articleDataGet($articles);
+    $result = $articles->get();
+    return response()->json(['article' => $result]);
   }
 
   /**
