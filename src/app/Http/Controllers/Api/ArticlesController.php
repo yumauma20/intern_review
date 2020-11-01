@@ -28,6 +28,8 @@ class ArticlesController extends Controller
 
     $this->articleSearch($articles);
     $this->pagination($articles);
+    $this->joinArticlesUsersTable($articles);
+    $this->articleDataGet($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
@@ -46,6 +48,8 @@ class ArticlesController extends Controller
     $articles->where('user_id',$user);
 
     $this->articleSearch($articles);
+    $this->joinArticlesUsersTable($articles);
+    $this->articleDataGet($articles);
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
@@ -53,9 +57,6 @@ class ArticlesController extends Controller
 
   /**
    * 記事の検索機能
-   * 
-   * @param $articles articlesテーブルのインスタンス
-   * @return $articles articlesテーブルのインスタンス
    */
   public function articleSearch($articles)
   {
@@ -67,14 +68,10 @@ class ArticlesController extends Controller
         $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
       }
     }
-    return $articles;
   }
 
   /**
    * ページネーション機能
-   * 
-   * @param $articles articlesテーブルのインスタンス
-   * @return $articles articlesテーブルのインスタンス
    */
   public function pagination($articles)
   {
@@ -89,8 +86,30 @@ class ArticlesController extends Controller
     $offset = $limit * ($page - 1);
     $articles->offset($offset);
     $articles->limit($limit);
+  }
 
-    return $articles;
+  /**
+   * articlesテーブルとusersテーブルの結合
+   */
+  public function joinArticlesUsersTable($articles)
+  {
+    $articles->leftjoin('users','articles.user_id','=','users.id');
+  }
+
+  /**
+   * 記事データに必要な情報を取得
+   */
+
+  public function articleDataGet($articles)
+  {
+    $articles->select(
+      'articles.id',
+      'articles.company',
+      'articles.term',
+      'articles.task',
+      'articles.impressions',
+      'users.name'
+    );
   }
 
   /**
