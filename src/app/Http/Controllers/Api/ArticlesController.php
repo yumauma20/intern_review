@@ -100,6 +100,8 @@ class ArticlesController extends Controller
     return;
   }
 
+  // todo 記事削除機能
+
   /**
    * 記事の検索機能
    */
