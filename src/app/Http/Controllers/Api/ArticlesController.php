@@ -87,6 +87,20 @@ class ArticlesController extends Controller
   }
 
   /**
+   * 記事編集機能
+   */
+  public function edit($id, ArticlesRequest $request)
+  {
+    $article = Article::find($id);
+    $article->company = $request->companyName;
+    $article->term = $request->term;
+    $article->task = $request->task;
+    $article->impressions = $request->impressions;
+    $article->save();
+    return;
+  }
+
+  /**
    * 記事の検索機能
    */
   public function articleSearch($articles)
