@@ -66,7 +66,6 @@ class ArticlesController extends Controller
 
     $result = $articles->get();
     return response()->json(['articles' => $result]);
-    // $articles = $this->index();    
   }
 
   /**
