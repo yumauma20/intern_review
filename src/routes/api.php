@@ -35,6 +35,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
   Route::put('/articles/edit/{id}', 'Api\ArticlesController@edit');
 
+  Route::delete('/articles/delete/{id}', 'Api\ArticlesController@delete');
+
   Route::post('/me', 'Auth\AuthController@me');
 
 });

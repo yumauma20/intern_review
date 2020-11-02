@@ -101,6 +101,15 @@ class ArticlesController extends Controller
   }
 
   /**
+   * 記事削除機能
+   */
+  public function delete($id)
+  {
+    $article = Article::find($id);
+    $article->delete();
+  }
+
+  /**
    * 記事の検索機能
    */
   public function articleSearch($articles)
