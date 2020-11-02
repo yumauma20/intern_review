@@ -32,7 +32,7 @@ class DetailModal extends Component {
                     className="container text-center"
                     style={{
                         width: "1200px",
-                        height: "300px",
+                        height: "250px",
                         padding: "0.5em 1em",
                         margin: "2em 0",
                         color: "#5d627b",
@@ -41,23 +41,35 @@ class DetailModal extends Component {
                         borderRadius: "5px"
                     }}
                 >
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", marginTop: "10px" }}>
                         <div style={{ flex: "1" }}>
                             <img
-                                src={require("../asset/profileicon.jpg")}
+                                src={require("../asset/profileImg.png")}
                                 style={{
                                     borderRadius: "50%",
-                                    width: "250px",
-                                    height: "250px"
+                                    width: "220px",
+                                    height: "220px"
                                 }}
                             />
                         </div>
 
                         <div style={{ flex: "1" }}>
-                            <p>氏名</p>
+                            <p style={{ textDecoration: "underline" }}>氏名</p>
                             <p>おじょぎりだー</p>
-                            <p>総投稿数</p>
+                            <p style={{ textDecoration: "underline" }}>
+                                総投稿数
+                            </p>
                             <p>13コ</p>
+                            <div className="row">
+                                <div className="col-md">
+                                    <button className="btn btn-outline-primary">
+                                        記事を投稿する
+                                    </button>
+                                    <button className="btn btn-outline-danger">
+                                        ログアウトする
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
