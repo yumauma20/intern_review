@@ -18,9 +18,22 @@ class Header extends Component {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
+                    <img
+                        src={require("../asset/headericon.png")}
+                        style={{
+                            // borderRadius: "50%",
+                            width: "50px",
+                            height: "40px",
+                            marginRight: "10px"
+                        }}
+                    />
                     <a
                         className="navbar-brand"
-                        style={{ color: "white", fontSize: "25px" }}
+                        style={{
+                            color: "white",
+                            fontSize: "25px",
+                            fontFamily: "cursive"
+                        }}
                     >
                         Intern Reviews
                     </a>
