@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import ArticlesList from "./ArticlesList";
 import { Link } from "react-router-dom";
 
-class DetailModal extends Component {
+class MyInfoCard extends Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -73,8 +74,9 @@ class DetailModal extends Component {
                         </div>
                     </div>
                 </div>
+                <a style={{ fontSize: "1.7em" }}>いままでの投稿記事</a>
             </>
         );
     }
 }
-export default DetailModal;
+export default MyInfoCard;
