@@ -51,6 +51,9 @@ class Header extends Component {
                             <li className="nav-item nav-link">
                                 <Link to="/Login">ログイン</Link>
                             </li>
+                            <li className="nav-item nav-link">
+                                <Link to="/Logout">ログアウト</Link>
+                            </li>
                         </ul>
                     </div>
                 </nav>

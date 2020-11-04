@@ -6,6 +6,7 @@ import MainPage from "../pages/MainPage";
 import PostReviewPage from "../pages/PostReviewPage";
 import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LoginPage";
+import LogoutPage from "../pages/LogoutPage";
 import DetailPage from "../pages/DetailPage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,6 +19,7 @@ class App extends Component {
                 <Route exact path="/" component={MainPage} />
                 <Route path="/SignUp" component={SignUpPage} />
                 <Route path="/Login" component={LoginPage} />
+                <Route path="/Logout" component={LogoutPage} />
                 <Route path="/Post" component={PostReviewPage} />
                 <Route path="/Detail/:id" component={DetailPage} />
             </Router>
