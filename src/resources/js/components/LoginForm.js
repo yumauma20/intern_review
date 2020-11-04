@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginAction } from "../loginAction";
 
-class SignUpForm extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -181,6 +181,6 @@ const mapDispatchToProps = dispatch => ({
     loginAction: () => dispatch(loginAction())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
-// export default SignUpForm;
+// export default LoginForm;

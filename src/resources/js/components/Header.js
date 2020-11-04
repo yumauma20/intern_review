@@ -53,6 +53,11 @@ class Header extends Component {
                                                     レビューを書く
                                                 </Link>
                                             </li>
+                                            <li className="nav-item nav-link">
+                                                <Link to="/Logout">
+                                                    ログアウト
+                                                </Link>
+                                            </li>
                                         </>
                                     );
                                 } else {
