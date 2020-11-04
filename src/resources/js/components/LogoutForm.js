@@ -14,6 +14,8 @@ class LogoutForm extends Component {
                 this.props.logoutAction();
             })
             .catch(res => {
+                //ログアウト正常にできるまでの強制ログアウト
+                this.props.logoutAction();
                 console.log("ログアウト失敗");
             });
         return <Redirect to="/" />;
