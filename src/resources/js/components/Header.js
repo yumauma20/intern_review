@@ -41,21 +41,6 @@ class Header extends Component {
                     </a>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
-                            <li className="nav-item nav-link">
-                                <Link to="/">投稿一覧</Link>
-                            </li>
-                            <li className="nav-item nav-link">
-                                <Link to="/Post">レビューを書く</Link>
-                            </li>
-                            <li className="nav-item nav-link">
-                                <Link to="/SignUp">新規登録</Link>
-                            </li>
-                            <li className="nav-item nav-link">
-                                <Link to="/Login">ログイン</Link>
-                            </li>
-                            <li className="nav-item nav-link">
-                                <Link to="/MyPage">マイページ</Link>
-                            </li>
                             {(() => {
                                 if (this.props.LoggedIn) {
                                     return (
@@ -96,7 +81,6 @@ class Header extends Component {
                                                     ログイン
                                                 </Link>
                                             </li>
-                                            {/* ログインしていないときはマイページへのリンクを表示していません */}
                                         </>
                                     );
                                 }

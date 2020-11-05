@@ -24,7 +24,6 @@ class App extends Component {
                 <Route path="/Login" component={LoginPage} />
                 <Route path="/Logout" component={LogoutPage} />
                 <Route path="/Post" component={PostReviewPage} />
-                <Route path="/Login" component={LoginPage} />
                 <Route path="/MyPage" component={MyPage} />
                 <Route path="/Detail/:id" component={DetailPage} />
                 <Route path="/MyDetail/:id" component={MyDetailPage} />

@@ -63,12 +63,16 @@ class MyInfoCard extends Component {
                             <p>13コ</p>
                             <div className="row">
                                 <div className="col-md">
-                                    <button className="btn btn-outline-primary">
-                                        記事を投稿する
-                                    </button>
-                                    <button className="btn btn-outline-danger">
-                                        ログアウトする
-                                    </button>
+                                    <Link to="/Post">
+                                        <button className="btn btn-outline-primary">
+                                            レビューを書く
+                                        </button>
+                                    </Link>
+                                    <Link to="/Logout">
+                                        <button className="btn btn-outline-danger">
+                                            ログアウトする
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
