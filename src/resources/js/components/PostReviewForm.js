@@ -24,11 +24,17 @@ class PostReviewForm extends Component {
     }
 
     render() {
-        const handleChange = e => {
+        const countValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
-            // const maxLength = e.target.maxLength;
+            const maxLength = e.target.maxLength;
+
             const { info, message } = this.state;
+
+            let mes = "";
+            if (!value) mes = "入力してください";
+            if (value.length > maxLength)
+                mes = `${maxLength}文字以内で入力してください`;
 
             this.setState({
                 info: {
@@ -36,11 +42,31 @@ class PostReviewForm extends Component {
                     [key]: value
                 },
                 message: {
-                    ...message
-                    // [key]: Validation.formValidate(key, value, maxLength)
+                    ...message,
+                    [key]: mes
                 }
             });
-            // console.log("handleChangeの" + this.state.info);
+        };
+
+        const selectValidation = e => {
+            const key = e.target.name;
+            const value = e.target.value;
+
+            const { info, message } = this.state;
+
+            let mes = "";
+            if (value == "選択してください") mes = "選択してください";
+
+            this.setState({
+                info: {
+                    ...info,
+                    [key]: value
+                },
+                message: {
+                    ...message,
+                    [key]: mes
+                }
+            });
         };
 
         const canSubmit = () => {
@@ -79,7 +105,6 @@ class PostReviewForm extends Component {
         };
 
         const { info, message } = this.state;
-
         return (
             <form
                 className="bg-white border rounded container mt-4"
@@ -102,7 +127,7 @@ class PostReviewForm extends Component {
                         name="companyName"
                         maxLength="50"
                         value={info.companyName}
-                        onChange={e => handleChange(e)}
+                        onChange={e => countValidation(e)}
                     />
                     {message.companyName && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -117,7 +142,7 @@ class PostReviewForm extends Component {
                         id="exampleFormControlSelect1"
                         name="term"
                         value={info.term}
-                        onChange={e => handleChange(e)}
+                        onChange={e => selectValidation(e)}
                     >
                         <option>選択してください</option>
                         <option value="1">1日</option>
@@ -126,6 +151,11 @@ class PostReviewForm extends Component {
                         <option value="4">3ヶ月未満</option>
                         <option value="5">3ヶ月以上</option>
                     </select>
+                    {message.term && (
+                        <p style={{ color: "red", fontSize: 8 }}>
+                            {message.term}
+                        </p>
+                    )}
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect1">業務内容</label>
@@ -134,9 +164,9 @@ class PostReviewForm extends Component {
                         type="text"
                         name="jobContent"
                         rows=""
-                        maxLength="30"
+                        maxLength="500"
                         value={info.jobContent}
-                        onChange={e => handleChange(e)}
+                        onChange={e => countValidation(e)}
                     />
                     {message.jobContent && (
                         <p style={{ color: "red", fontSize: 8 }}>
@@ -150,9 +180,9 @@ class PostReviewForm extends Component {
                         className="form-control"
                         type="text"
                         name="impressions"
-                        maxLength="50"
+                        maxLength="500"
                         value={info.impressions}
-                        onChange={e => handleChange(e)}
+                        onChange={e => countValidation(e)}
                         id="exampleFormControlTextarea1"
                         rows="3"
                     />
