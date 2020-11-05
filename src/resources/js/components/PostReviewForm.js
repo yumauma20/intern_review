@@ -14,10 +14,10 @@ class PostReviewForm extends Component {
                 impressions: ""
             },
             message: {
-                companyName: "この項目は必須項目です",
-                term: "この項目は必須項目です",
-                jobContent: "この項目は必須項目です",
-                impressions: "この項目は必須項目です"
+                companyName: "",
+                term: "",
+                jobContent: "",
+                impressions: ""
             },
             loading: false
         };
