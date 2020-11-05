@@ -92,6 +92,7 @@ class ArticlesController extends Controller
   public function edit($id, ArticlesRequest $request)
   {
     $article = Article::find($id);
+    $this->authorize('edit', $article);
     $article->company = $request->companyName;
     $article->term = $request->term;
     $article->task = $request->task;
@@ -106,6 +107,7 @@ class ArticlesController extends Controller
   public function delete($id)
   {
     $article = Article::find($id);
+    $this->authorize('delete', $article);
     $article->delete();
   }
 
