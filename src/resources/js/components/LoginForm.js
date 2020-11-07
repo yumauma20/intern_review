@@ -178,10 +178,7 @@ const mapStateToProps = state => ({
     Token: state.Token
 });
 
-//ここ簡略化
-const mapDispatchToProps = dispatch => ({
-    loginAction: token => dispatch(loginAction(token))
-});
+const mapDispatchToProps = { loginAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 
