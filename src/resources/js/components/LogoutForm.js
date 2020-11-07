@@ -26,9 +26,7 @@ const mapStateToProps = state => ({
     LoggedIn: state.LoggedIn
 });
 
-const mapDispatchToProps = dispatch => ({
-    logoutAction: () => dispatch(logoutAction())
-});
+const mapDispatchToProps = { logoutAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutForm);
 
