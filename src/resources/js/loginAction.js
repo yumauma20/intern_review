@@ -1,11 +1,8 @@
 const LOGIN = "LOGIN";
-//action Creator
-export const loginAction = (Token, LoggedIn) => {
-    console.log(Token);
+export const loginAction = (Token, LoggedIn = false) => {
     return {
-        //action
         type: LOGIN,
-        LoggedIn: LoggedIn,
-        Token: Token
+        LoggedIn,
+        Token
     };
 };
