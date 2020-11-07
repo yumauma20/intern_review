@@ -1,8 +1,7 @@
 const LOGIN = "LOGIN";
-export const loginAction = (Token, LoggedIn = false) => {
+export const loginAction = Token => {
     return {
         type: LOGIN,
-        LoggedIn,
         Token
     };
 };
