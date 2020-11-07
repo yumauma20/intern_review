@@ -1,9 +1,8 @@
 const LOGOUT = "LOGOUT";
 //action Creator
-export const logoutAction = LoggedIn => {
+export const logoutAction = () => {
     return {
         //action
-        type: LOGOUT,
-        LoggedIn
+        type: LOGOUT
     };
 };

@@ -8,7 +8,7 @@ export default (state = initialState, action) => {
         case "LOGIN":
             return { LoggedIn: true, Token: action.Token };
         case "LOGOUT":
-            return { LoggedIn: false };
+            return { LoggedIn: false, Token: "" };
         default:
             return state;
     }
