@@ -102,7 +102,7 @@ class LoginForm extends Component {
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + token;
                     console.log(axios.defaults.headers.common["Authorization"]);
-                    this.props.loginAction();
+                    this.props.loginAction(token);
                 })
                 .catch(res => {
                     console.log("ログイン失敗");
@@ -178,7 +178,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    loginAction: () => dispatch(loginAction())
+    loginAction: token => dispatch(loginAction(token))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
