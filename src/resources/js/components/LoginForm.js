@@ -20,6 +20,7 @@ class LoginForm extends Component {
 
     render() {
         console.log(this.props.LoggedIn);
+        console.log(this.props.Token);
         const emailValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
@@ -101,8 +102,7 @@ class LoginForm extends Component {
                     axios.defaults.headers.common["Authorization"] = "";
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + token;
-                    console.log(axios.defaults.headers.common["Authorization"]);
-                    this.props.loginAction();
+                    this.props.loginAction(token);
                 })
                 .catch(res => {
                     console.log("ログイン失敗");
@@ -174,12 +174,11 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    LoggedIn: state.LoggedIn
+    LoggedIn: state.LoggedIn,
+    Token: state.Token
 });
 
-const mapDispatchToProps = dispatch => ({
-    loginAction: () => dispatch(loginAction())
-});
+const mapDispatchToProps = { loginAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 

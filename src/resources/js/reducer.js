@@ -1,13 +1,14 @@
 const initialState = {
-    LoggedIn: false
+    LoggedIn: false,
+    Token: ""
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case "LOGIN":
-            return { LoggedIn: true };
+            return { LoggedIn: true, Token: action.Token };
         case "LOGOUT":
-            return { LoggedIn: false };
+            return { LoggedIn: false, Token: "" };
         default:
             return state;
     }
