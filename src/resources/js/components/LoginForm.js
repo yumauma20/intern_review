@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginAction } from "../loginAction";
+import { withRouter } from "react-router";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -103,6 +104,8 @@ class LoginForm extends Component {
                     axios.defaults.headers.common["Authorization"] =
                         "Bearer " + token;
                     this.props.loginAction(token);
+                    //マイページにリダイレクトさせる
+                    this.props.history.push("/MyPage");
                 })
                 .catch(res => {
                     console.log("ログイン失敗");
@@ -180,6 +183,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { loginAction };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+);
 
 // export default LoginForm;
