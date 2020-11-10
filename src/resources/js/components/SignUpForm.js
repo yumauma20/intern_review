@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Validation from "./validation";
+import { withRouter } from "react-router";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -143,11 +144,13 @@ class SignUpForm extends Component {
             axios
                 .post(url, data)
                 .then(res => {
-                    console.log("成功");
+                    console.log("会員登録成功");
                 })
                 .catch(res => {
-                    console.log("失敗");
+                    console.log("会員登録失敗");
                 });
+
+            // this.props.history.push("/Login");
         };
 
         const { info, message } = this.state;
@@ -252,4 +255,4 @@ class SignUpForm extends Component {
         );
     }
 }
-export default SignUpForm;
+export default withRouter(SignUpForm);

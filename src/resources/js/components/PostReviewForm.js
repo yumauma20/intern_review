@@ -102,10 +102,10 @@ class PostReviewForm extends Component {
             axios
                 .post(url, data)
                 .then(res => {
-                    console.log("成功");
+                    console.log("記事投稿成功");
                 })
                 .catch(res => {
-                    console.log("失敗");
+                    console.log("記事投稿失敗");
                 });
         };
 
