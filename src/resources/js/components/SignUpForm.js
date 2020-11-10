@@ -150,7 +150,7 @@ class SignUpForm extends Component {
                     console.log("会員登録失敗");
                 });
 
-            // this.props.history.push("/Login");
+            this.props.history.push("/Login");
         };
 
         const { info, message } = this.state;
