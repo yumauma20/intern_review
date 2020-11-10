@@ -99,9 +99,14 @@ class PostReviewForm extends Component {
                 task: this.state.info.jobContent,
                 impressions: this.state.info.impressions
             };
-            axios.post(url, data).then(res => {
-                alert("記事の投稿に成功しました!!!!!!");
-            });
+            axios
+                .post(url, data)
+                .then(res => {
+                    console.log("成功");
+                })
+                .catch(res => {
+                    console.log("失敗");
+                });
         };
 
         const { info, message } = this.state;

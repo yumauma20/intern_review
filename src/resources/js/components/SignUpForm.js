@@ -139,9 +139,15 @@ class SignUpForm extends Component {
                 password: this.state.info.password,
                 password_confirmation: this.state.info.password_confirmation
             };
-            axios.post(url, data).then(res => {
-                alert("会員登録成功");
-            });
+
+            axios
+                .post(url, data)
+                .then(res => {
+                    console.log("成功");
+                })
+                .catch(res => {
+                    console.log("失敗");
+                });
         };
 
         const { info, message } = this.state;
