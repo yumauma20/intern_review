@@ -91,6 +91,14 @@ class MyDetailModal extends Component {
                             マイページ一覧に戻る
                         </div>
                     </Link>
+                    <Link
+                        to={"/MyEdit/" + this.props.id}
+                        style={{ color: "white" }}
+                    >
+                        <div className="btn btn-outline-success">
+                            記事を編集する
+                        </div>
+                    </Link>
                 </div>
             </>
         );

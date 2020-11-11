@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-class PostReviewForm extends Component {
+// import Validation from "./validation";
+// import axios from "axios"; なくてもなぜかいける笑
+
+class MyEditForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -88,8 +92,12 @@ class PostReviewForm extends Component {
 
         // フォームデータ登録非同期通信
         const postFormData = () => {
-            console.log("postFormDataです");
-            const url = "http://localhost/api/articles/create";
+            console.log("myeditformです");
+            const url = `http://localhost/api/articles/edit/${this.props.id}`;
+            const headers = {
+                Accept: "application/json",
+                Authorization: "Bearer " + this.props.Token
+            };
             const data = {
                 companyName: this.state.info.companyName,
                 term: this.state.info.term,
@@ -97,12 +105,13 @@ class PostReviewForm extends Component {
                 impressions: this.state.info.impressions
             };
             axios
-                .post(url, data)
-                .then(res => {
-                    console.log("記事投稿成功");
+                .put(url, data, { headers: headers })
+                .then(() => {
+                    alert("記事を編集しました。");
+                    // todo 編集成功したらマイページにリダイレクトさせたい
                 })
-                .catch(res => {
-                    console.log("記事投稿失敗");
+                .catch(() => {
+                    console.log("記事編集失敗");
                 });
         };
 
@@ -119,7 +128,7 @@ class PostReviewForm extends Component {
                     className="font-weight-bold h3 mb-4"
                     style={{ margin: "10px" }}
                 >
-                    記事投稿フォーム
+                    記事編集フォーム
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect1">企業</label>
@@ -207,4 +216,8 @@ class PostReviewForm extends Component {
         );
     }
 }
-export default PostReviewForm;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(MyEditForm);
