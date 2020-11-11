@@ -22,10 +22,12 @@ class MyCompanyCard extends Component {
             axios
                 .delete(url, { headers: headers })
                 .then(() => {
-                    alert("記事を削除しました");
+                    alert("記事を削除しました。");
+                    //todo マイページにリダイレクトさせたい
+                    location.reload();
                 })
                 .catch(() => {
-                    console.log("通信に失敗しました。");
+                    console.log("記事削除に失敗しました。");
                 });
         };
         return (
