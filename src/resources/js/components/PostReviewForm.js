@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-// import Validation from "./validation";
-// import axios from "axios"; なくてもなぜかいける笑
-
 class PostReviewForm extends Component {
     constructor(props) {
         super(props);
