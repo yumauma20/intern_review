@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class MyCompanyCard extends Component {
     render() {
@@ -9,6 +10,23 @@ class MyCompanyCard extends Component {
                 return string.substr(0, MAX_LENGTH) + "...";
             }
             return string;
+        };
+        const deleteArticle = () => {
+            console.log(this.props.id);
+            const url = `http://localhost/api/articles/delete/${this.props.id}`;
+            // headerにトークンを入れてから通信
+            const headers = {
+                Accept: "application/json",
+                Authorization: "Bearer " + this.props.Token
+            };
+            axios
+                .delete(url, { headers: headers })
+                .then(() => {
+                    alert("記事を削除しました");
+                })
+                .catch(() => {
+                    console.log("通信に失敗しました。");
+                });
         };
         return (
             <div
@@ -36,10 +54,19 @@ class MyCompanyCard extends Component {
                             記事詳細へ
                         </div>
                     </Link>
-                    <div className="btn btn-outline-danger">削除</div>
+                    <div
+                        className="btn btn-outline-danger"
+                        onClick={deleteArticle}
+                    >
+                        削除
+                    </div>
                 </div>
             </div>
         );
     }
 }
-export default MyCompanyCard;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(MyCompanyCard);
