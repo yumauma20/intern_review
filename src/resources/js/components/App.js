@@ -14,7 +14,6 @@ import MyEditPage from "../pages/MyEditPage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../store";
-import MyEditForm from "./MyEditForm";
 
 class App extends Component {
     render() {
@@ -29,7 +28,7 @@ class App extends Component {
                     <Route path="/MyPage" component={MyPage} />
                     <Route path="/Detail/:id" component={DetailPage} />
                     <Route path="/MyDetail/:id" component={MyDetailPage} />
-                    <Route path="/MyEdit/:id" component={MyEditForm} />
+                    <Route path="/MyEdit/:id" component={MyEditPage} />
                 </Switch>
             </BrowserRouter>
         );

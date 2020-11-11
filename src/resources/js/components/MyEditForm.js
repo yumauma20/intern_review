@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 // import Validation from "./validation";
 // import axios from "axios"; なくてもなぜかいける笑
@@ -92,7 +93,11 @@ class MyEditForm extends Component {
         // フォームデータ登録非同期通信
         const postFormData = () => {
             console.log("myeditformです");
-            const url = "http://localhost/api/articles/create";
+            const url = `http://localhost/api/articles/edit/${this.props.id}`;
+            const headers = {
+                Accept: "application/json",
+                Authorization: "Bearer " + this.props.Token
+            };
             const data = {
                 companyName: this.state.info.companyName,
                 term: this.state.info.term,
@@ -100,11 +105,12 @@ class MyEditForm extends Component {
                 impressions: this.state.info.impressions
             };
             axios
-                .post(url, data)
-                .then(res => {
+                .put(url, data, { headers: headers })
+                .then(() => {
                     alert("記事を編集しました。");
+                    // todo 編集成功したらマイページにリダイレクトさせたい
                 })
-                .catch(res => {
+                .catch(() => {
                     console.log("記事編集失敗");
                 });
         };
@@ -210,4 +216,8 @@ class MyEditForm extends Component {
         );
     }
 }
-export default MyEditForm;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(MyEditForm);

@@ -96,7 +96,7 @@ class MyDetailModal extends Component {
                         style={{ color: "white" }}
                     >
                         <div className="btn btn-outline-success">
-                            記事詳細へ
+                            記事を編集する
                         </div>
                     </Link>
                 </div>
