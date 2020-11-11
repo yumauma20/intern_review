@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MyCompanyCardList from "./MyCompanyCardList";
+import { connect } from "react-redux";
 
 class MyArticlesList extends Component {
     constructor(props) {
@@ -53,8 +54,14 @@ class MyArticlesList extends Component {
     componentDidMount() {
         //   render直後に行いたい処理を書くところ
         const url = "http://localhost/api/myArticles";
+        const headers = {
+            Accept: "application/json",
+            Authorization: "Bearer " + this.props.Token
+        };
+        console.log("myarticleの");
+        console.log(this.props.Token);
         axios
-            .get(url)
+            .get(url, { headers: headers })
             .then(res => {
                 this.setState({
                     articles: res.data.articles
@@ -76,4 +83,8 @@ class MyArticlesList extends Component {
     }
 }
 
-export default MyArticlesList;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(MyArticlesList);
