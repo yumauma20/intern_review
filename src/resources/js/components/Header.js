@@ -8,7 +8,7 @@ class Header extends Component {
         console.log(this.props.LoggedIn);
         return (
             <div>
-                <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+                <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                     <button
                         className="navbar-toggler"
                         type="button"
