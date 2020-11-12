@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class PostReviewForm extends Component {
     constructor(props) {
@@ -90,6 +91,10 @@ class PostReviewForm extends Component {
         const postFormData = () => {
             console.log("postFormDataです");
             const url = "http://localhost/api/articles/create";
+            const headers = {
+                Accept: "application/json",
+                Authorization: "Bearer " + this.props.Token
+            };
             const data = {
                 companyName: this.state.info.companyName,
                 term: this.state.info.term,
@@ -97,11 +102,11 @@ class PostReviewForm extends Component {
                 impressions: this.state.info.impressions
             };
             axios
-                .post(url, data)
-                .then(res => {
-                    console.log("記事投稿成功");
+                .post(url, data, { headers: headers })
+                .then(() => {
+                    alert("記事を投稿しました");
                 })
-                .catch(res => {
+                .catch(() => {
                     console.log("記事投稿失敗");
                 });
         };
@@ -207,4 +212,8 @@ class PostReviewForm extends Component {
         );
     }
 }
-export default PostReviewForm;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(PostReviewForm);
