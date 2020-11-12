@@ -11,6 +11,7 @@ import LogoutPage from "../pages/LogoutPage";
 import DetailPage from "../pages/DetailPage";
 import MyDetailPage from "../pages/MyDetailPage";
 import MyEditPage from "../pages/MyEditPage";
+import NotFoundPage from "../pages/NotFoundPage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "../store";
@@ -29,6 +30,7 @@ class App extends Component {
                     <Route path="/Detail/:id" component={DetailPage} />
                     <Route path="/MyDetail/:id" component={MyDetailPage} />
                     <Route path="/MyEdit/:id" component={MyEditPage} />
+                    <Route path="/NotFound" component={NotFoundPage} />
                 </Switch>
             </BrowserRouter>
         );
