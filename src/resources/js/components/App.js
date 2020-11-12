@@ -13,7 +13,7 @@ import MyDetailPage from "../pages/MyDetailPage";
 import MyEditPage from "../pages/MyEditPage";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor } from "../store";
+import store, { persistor } from "../modules/store";
 
 class App extends Component {
     render() {

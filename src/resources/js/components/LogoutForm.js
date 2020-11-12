@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { logoutAction } from "../logoutAction";
+import { logoutAction } from "../modules/logoutAction";
 
 class LogoutForm extends Component {
     render() {
