@@ -6,26 +6,37 @@ class MyInfoCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articlesSum: ""
+            articlesSum: "",
+            myName: ""
         };
     }
 
     componentDidMount() {
-        //   render直後に行いたい処理を書くところ
-        const url = "http://localhost/api/myArticles";
+        // ログインしているユーザの記事の総投稿数を計算しstateにセットする
+        const myArticlesUrl = "http://localhost/api/myArticles";
         // headerにトークンを入れてから通信
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.props.Token
         };
-        // console.log("MyInfoCardの");
-        // console.log(this.props.Token);
         axios
-            .get(url, { headers: headers })
+            .get(myArticlesUrl, { headers: headers })
             .then(res => {
-                console.log(res.data.articles.length);
                 this.setState({
                     articlesSum: res.data.articles.length
+                });
+            })
+            .catch(() => {
+                console.log("通信に失敗しました。");
+            });
+
+        // ログインしているユーザの名前を取得
+        const meUrl = "http://localhost/api/me";
+        axios
+            .get(meUrl, { headers: headers })
+            .then(res => {
+                this.setState({
+                    myName: res.data.name
                 });
             })
             .catch(() => {
@@ -63,7 +74,7 @@ class MyInfoCard extends Component {
 
                         <div style={{ flex: "1" }}>
                             <p style={{ textDecoration: "underline" }}>氏名</p>
-                            <p>おじょぎりだー</p>
+                            <p>{this.state.myName} </p>
                             <p style={{ textDecoration: "underline" }}>
                                 総投稿数
                             </p>
