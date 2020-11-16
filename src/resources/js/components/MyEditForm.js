@@ -20,8 +20,23 @@ class MyEditForm extends Component {
                 jobContent: "",
                 impressions: ""
             },
-            loading: false
+            loading: false,
+            article: []
         };
+    }
+    componentDidMount() {
+        //   render直後に行いたい処理を書くところ
+        const url = `http://localhost/api/articles/detail/${this.props.id}`;
+        axios
+            .get(url)
+            .then(res => {
+                this.setState({
+                    article: res.data.article[0]
+                });
+            })
+            .catch(() => {
+                console.log("通信に失敗しました。");
+            });
     }
 
     render() {
@@ -138,6 +153,7 @@ class MyEditForm extends Component {
                         name="companyName"
                         maxLength="50"
                         value={info.companyName}
+                        placeholder={this.state.article.company}
                         onChange={e => countValidation(e)}
                     />
                     {message.companyName && (
@@ -177,6 +193,7 @@ class MyEditForm extends Component {
                         rows=""
                         maxLength="500"
                         value={info.jobContent}
+                        placeholder={this.state.article.task}
                         onChange={e => countValidation(e)}
                     />
                     {message.jobContent && (
@@ -193,6 +210,7 @@ class MyEditForm extends Component {
                         name="impressions"
                         maxLength="500"
                         value={info.impressions}
+                        placeholder={this.state.article.impressions}
                         onChange={e => countValidation(e)}
                         id="exampleFormControlTextarea1"
                         rows="3"
