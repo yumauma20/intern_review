@@ -1,30 +1,37 @@
 import React, { Component } from "react";
-import ArticlesList from "./ArticlesList";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class MyInfoCard extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         //  idで検索apiを作成して1件だけ取得して表示したい
-    //         article: []
-    //     };
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            articlesSum: ""
+        };
+    }
 
-    // componentDidMount() {
-    //     //   render直後に行いたい処理を書くところ
-    //     const url = `http://localhost/api/articles/detail/${this.props.id}`;
-    //     axios
-    //         .get(url)
-    //         .then(res => {
-    //             this.setState({
-    //                 article: res.data.article[0]
-    //             });
-    //         })
-    //         .catch(() => {
-    //             console.log("通信に失敗しました。");
-    //         });
-    // }
+    componentDidMount() {
+        //   render直後に行いたい処理を書くところ
+        const url = "http://localhost/api/myArticles";
+        // headerにトークンを入れてから通信
+        const headers = {
+            Accept: "application/json",
+            Authorization: "Bearer " + this.props.Token
+        };
+        // console.log("MyInfoCardの");
+        // console.log(this.props.Token);
+        axios
+            .get(url, { headers: headers })
+            .then(res => {
+                console.log(res.data.articles.length);
+                this.setState({
+                    articlesSum: res.data.articles.length
+                });
+            })
+            .catch(() => {
+                console.log("通信に失敗しました。");
+            });
+    }
 
     render() {
         return (
@@ -60,7 +67,7 @@ class MyInfoCard extends Component {
                             <p style={{ textDecoration: "underline" }}>
                                 総投稿数
                             </p>
-                            <p>13コ</p>
+                            <p>{this.state.articlesSum}</p>
                             <div className="row">
                                 <div className="col-md">
                                     <Link to="/Post">
@@ -83,4 +90,8 @@ class MyInfoCard extends Component {
         );
     }
 }
-export default MyInfoCard;
+const mapStateToProps = state => ({
+    Token: state.Token
+});
+
+export default connect(mapStateToProps)(MyInfoCard);

@@ -19,7 +19,7 @@ class ArticlesController extends Controller
   /**
    * 記事全件取得
    * May $articles = DB::table('articles');はArticle::query();に置き換えもできる
-   * 
+   *
    * @return array json形式で記事データ全件取得
    */
   public function index()
@@ -37,7 +37,7 @@ class ArticlesController extends Controller
 
   /**
    * ログインしてるユーザーの記事全件取得
-   * 
+   *
    * @return array json形式で記事データ全件取得
    */
   public function myArticles()
@@ -57,7 +57,7 @@ class ArticlesController extends Controller
 
   /**
    * 記事1件取得
-   * 
+   *
    * @param $id int 記事のID
    * @return object 1件分の記事データ
    */
