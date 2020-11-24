@@ -155,7 +155,7 @@ class SignUpForm extends Component {
 
         const { info, message } = this.state;
         return (
-            <form
+            <div
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -251,7 +251,7 @@ class SignUpForm extends Component {
                 >
                     登録する
                 </button>
-            </form>
+            </div>
         );
     }
 }

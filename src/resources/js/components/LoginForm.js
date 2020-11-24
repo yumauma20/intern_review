@@ -114,7 +114,7 @@ class LoginForm extends Component {
 
         const { info, message } = this.state;
         return (
-            <form
+            <div
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -171,7 +171,7 @@ class LoginForm extends Component {
                 >
                     登録する
                 </button>
-            </form>
+            </div>
         );
     }
 }
