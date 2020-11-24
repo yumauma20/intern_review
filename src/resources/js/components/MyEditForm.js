@@ -132,7 +132,7 @@ class MyEditForm extends Component {
 
         const { info, message } = this.state;
         return (
-            <form
+            <div
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -230,7 +230,7 @@ class MyEditForm extends Component {
                 >
                     投稿する
                 </button>
-            </form>
+            </div>
         );
     }
 }
