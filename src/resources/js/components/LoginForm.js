@@ -169,7 +169,7 @@ class LoginForm extends Component {
                     disabled={!canSubmit()}
                     onClick={loginUser}
                 >
-                    登録する
+                    ログインする
                 </button>
             </div>
         );
