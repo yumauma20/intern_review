@@ -41,50 +41,34 @@ class Header extends Component {
                     </a>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
-                            {(() => {
-                                if (this.props.LoggedIn) {
-                                    return (
-                                        <>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/">投稿一覧</Link>
-                                            </li>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/Post">
-                                                    レビューを書く
-                                                </Link>
-                                            </li>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/Logout">
-                                                    ログアウト
-                                                </Link>
-                                            </li>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/MyPage">
-                                                    マイページ
-                                                </Link>
-                                            </li>
-                                        </>
-                                    );
-                                } else {
-                                    return (
-                                        <>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/">投稿一覧</Link>
-                                            </li>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/SignUp">
-                                                    新規登録
-                                                </Link>
-                                            </li>
-                                            <li className="nav-item nav-link">
-                                                <Link to="/Login">
-                                                    ログイン
-                                                </Link>
-                                            </li>
-                                        </>
-                                    );
-                                }
-                            })()}
+                            {this.props.LoggedIn ? (
+                                <>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/">投稿一覧</Link>
+                                    </li>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/Post">レビューを書く</Link>
+                                    </li>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/Logout">ログアウト</Link>
+                                    </li>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/MyPage">マイページ</Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/">投稿一覧</Link>
+                                    </li>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/SignUp">新規登録</Link>
+                                    </li>
+                                    <li className="nav-item nav-link">
+                                        <Link to="/Login">ログイン</Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </nav>
