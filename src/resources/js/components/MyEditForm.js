@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-// import Validation from "./validation";
-// import axios from "axios"; なくてもなぜかいける笑
-
 class MyEditForm extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +28,12 @@ class MyEditForm extends Component {
             .get(url)
             .then(res => {
                 this.setState({
-                    article: res.data.article[0]
+                    info: {
+                        companyName: res.data.article[0].company,
+                        term: res.data.article[0].term,
+                        jobContent: res.data.article[0].task,
+                        impressions: res.data.article[0].impressions
+                    }
                 });
             })
             .catch(() => {
@@ -153,7 +155,6 @@ class MyEditForm extends Component {
                         name="companyName"
                         maxLength="50"
                         value={info.companyName}
-                        placeholder={this.state.article.company}
                         onChange={e => countValidation(e)}
                     />
                     {message.companyName && (
@@ -193,7 +194,6 @@ class MyEditForm extends Component {
                         rows=""
                         maxLength="500"
                         value={info.jobContent}
-                        placeholder={this.state.article.task}
                         onChange={e => countValidation(e)}
                     />
                     {message.jobContent && (
@@ -210,7 +210,6 @@ class MyEditForm extends Component {
                         name="impressions"
                         maxLength="500"
                         value={info.impressions}
-                        placeholder={this.state.article.impressions}
                         onChange={e => countValidation(e)}
                         id="exampleFormControlTextarea1"
                         rows="3"
@@ -228,7 +227,7 @@ class MyEditForm extends Component {
                     disabled={!canSubmit()}
                     onClick={postFormData}
                 >
-                    投稿する
+                    編集する
                 </button>
             </div>
         );
