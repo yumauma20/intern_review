@@ -27,6 +27,7 @@ class ArticlesController extends Controller
     $articles = DB::table('articles');
 
     $this->articleSearch($articles);
+    $this->orderByArticles($articles);
     $this->pagination($articles);
     $this->joinArticlesUsersTable($articles);
     $this->articleDataGet($articles);
@@ -48,6 +49,7 @@ class ArticlesController extends Controller
     $articles->where('user_id',$user);
 
     $this->articleSearch($articles);
+    $this->orderByArticles($articles);
     $this->joinArticlesUsersTable($articles);
     $this->articleDataGet($articles);
 
@@ -124,6 +126,14 @@ class ArticlesController extends Controller
         $articles->where(DB::raw('CONCAT(company,",",task,",",impressions)'),'LIKE',"%$keyword%");
       }
     }
+  }
+
+  /**
+   * 記事を投稿日時の新しい順に並び替える
+   */
+  public function orderByArticles($articles)
+  {
+    $articles->orderBy('articles.created_at','desc');
   }
 
   /**
