@@ -69,12 +69,19 @@ class ArticlesList extends Component {
             );
         };
 
+        console.log(this.state.articles.length);
         return (
             <>
                 <SearchForm searchArticles={articleDataGet} />
                 <div className="container text-center">
                     <div className="row">
-                        <CompanyCardList articles={this.state.articles} />
+                        {this.state.articles.length ? (
+                            <CompanyCardList articles={this.state.articles} />
+                        ) : (
+                            <p style={{ fontSize: "1.7em" }}>
+                                記事はありません
+                            </p>
+                        )}
                     </div>
                 </div>
                 <Pagination getCurrentPageData={getCurrentPageData} />

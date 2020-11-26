@@ -36,7 +36,16 @@ class MyArticlesList extends Component {
         return (
             <div className="container text-center">
                 <div className="row">
-                    <MyCompanyCardList articles={this.state.articles} />
+                    {this.state.articles.length ? (
+                        <MyCompanyCardList articles={this.state.articles} />
+                    ) : (
+                        <p
+                            className="container text-center"
+                            style={{ fontSize: "1.7em" }}
+                        >
+                            記事はありません
+                        </p>
+                    )}
                 </div>
             </div>
         );
