@@ -12,7 +12,6 @@ class MyCompanyCard extends Component {
             return string;
         };
         const deleteArticle = () => {
-            console.log(this.props.id);
             const url = `http://localhost/api/articles/delete/${this.props.id}`;
             // headerにトークンを入れてから通信
             const headers = {
@@ -23,11 +22,10 @@ class MyCompanyCard extends Component {
                 .delete(url, { headers: headers })
                 .then(() => {
                     alert("記事を削除しました。");
-                    //todo マイページにリダイレクトさせたい
                     location.reload();
                 })
                 .catch(() => {
-                    console.log("記事削除に失敗しました。");
+                    alert("記事削除に失敗しました。");
                 });
         };
         return (

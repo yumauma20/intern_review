@@ -16,8 +16,7 @@ class SignUpForm extends Component {
                 email: "",
                 password: "",
                 password_confirmation: ""
-            },
-            loading: false
+            }
         };
     }
 
@@ -112,7 +111,7 @@ class SignUpForm extends Component {
         };
 
         const canSubmit = () => {
-            const { info, message, loading } = this.state;
+            const { info, message } = this.state;
 
             const validInfo =
                 Object.values(info).filter(value => {
@@ -122,13 +121,7 @@ class SignUpForm extends Component {
                 Object.values(message).filter(value => {
                     return value !== "";
                 }).length === 0;
-            return validInfo && validMessage && !loading;
-        };
-
-        // 連打されるのを防ぐ
-        const submit = () => {
-            this.setState({ loading: true });
-            this.setState({ loading: false });
+            return validInfo && validMessage;
         };
 
         const registerUser = () => {
@@ -143,13 +136,13 @@ class SignUpForm extends Component {
             axios
                 .post(url, data)
                 .then(res => {
-                    console.log("会員登録成功");
+                    alert("会員登録成功");
+                    this.props.history.push("/Login");
                 })
                 .catch(res => {
-                    console.log("会員登録失敗");
+                    //今後はエラーメッセージを表示させる
+                    alert("会員登録失敗");
                 });
-
-            this.props.history.push("/Login");
         };
 
         const { info, message } = this.state;
@@ -168,12 +161,11 @@ class SignUpForm extends Component {
                     新規登録
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputName1">UserName</label>
+                    <label>UserName</label>
                     <input
                         type="name"
                         name="name"
                         className="form-control"
-                        id="exampleInputName"
                         placeholder="Enter Name"
                         value={info.name}
                         onChange={e => userValidation(e)}
@@ -185,13 +177,11 @@ class SignUpForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <label>Email address</label>
                     <input
                         type="email"
                         name="email"
                         className="form-control"
-                        id="exampleInputEmail1"
-                        // aria-describedby="emailHelp"
                         placeholder="Enter email"
                         value={info.email}
                         onChange={e => emailValidation(e)}
@@ -201,12 +191,9 @@ class SignUpForm extends Component {
                             {message.email}
                         </p>
                     )}
-                    <small id="emailHelp" className="form-text text-muted">
-                        公開せませんので安心して入力しやがれ
-                    </small>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <label>Password</label>
                     <input
                         type="password"
                         name="password"
@@ -223,9 +210,7 @@ class SignUpForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword2">
-                        Confirm Password
-                    </label>
+                    <label>Confirm Password</label>
                     <input
                         type="password"
                         name="password_confirmation"

@@ -23,7 +23,7 @@ class ArticlesList extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 
@@ -54,7 +54,7 @@ class ArticlesList extends Component {
                     });
                 })
                 .catch(() => {
-                    console.log("通信に失敗しました。");
+                    alert("通信に失敗しました。");
                 });
         };
 
@@ -69,7 +69,6 @@ class ArticlesList extends Component {
             );
         };
 
-        console.log(this.state.articles.length);
         return (
             <>
                 <SearchForm searchArticles={articleDataGet} />
