@@ -10,13 +10,11 @@ class LogoutForm extends Component {
             .post(url)
             .then(res => {
                 axios.defaults.headers.common["Authorization"] = "";
-                console.log("ログアウト成功");
                 this.props.logoutAction();
             })
             .catch(res => {
                 //ログアウト正常にできるまでの強制ログアウト
                 this.props.logoutAction();
-                console.log("ログアウト失敗");
             });
         return <Redirect to="/" />;
     }

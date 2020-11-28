@@ -20,7 +20,7 @@ class DetailModal extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 

@@ -18,8 +18,6 @@ class MyArticlesList extends Component {
             Accept: "application/json",
             Authorization: "Bearer " + this.props.Token
         };
-        console.log("myarticleの");
-        console.log(this.props.Token);
         axios
             .get(url, { headers: headers })
             .then(res => {
@@ -28,7 +26,7 @@ class MyArticlesList extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 

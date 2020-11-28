@@ -136,13 +136,13 @@ class SignUpForm extends Component {
             axios
                 .post(url, data)
                 .then(res => {
-                    console.log("会員登録成功");
+                    alert("会員登録成功");
+                    this.props.history.push("/Login");
                 })
                 .catch(res => {
-                    console.log("会員登録失敗");
+                    //今後はエラーメッセージを表示させる
+                    alert("会員登録失敗");
                 });
-
-            this.props.history.push("/Login");
         };
 
         const { info, message } = this.state;

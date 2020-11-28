@@ -82,7 +82,6 @@ class PostReviewForm extends Component {
 
         // フォームデータ登録非同期通信
         const postFormData = () => {
-            console.log("postFormDataです");
             const url = "http://localhost/api/articles/create";
             const headers = {
                 Accept: "application/json",
@@ -100,7 +99,7 @@ class PostReviewForm extends Component {
                     alert("記事を投稿しました");
                 })
                 .catch(() => {
-                    console.log("記事投稿失敗");
+                    alert("記事投稿失敗");
                 });
         };
 

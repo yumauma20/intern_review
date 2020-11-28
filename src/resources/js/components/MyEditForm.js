@@ -36,7 +36,7 @@ class MyEditForm extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 
@@ -102,7 +102,6 @@ class MyEditForm extends Component {
 
         // フォームデータ登録非同期通信
         const postFormData = () => {
-            console.log("myeditformです");
             const url = `http://localhost/api/articles/edit/${this.props.id}`;
             const headers = {
                 Accept: "application/json",
@@ -121,7 +120,8 @@ class MyEditForm extends Component {
                     // todo 編集成功したらマイページにリダイレクトさせたい
                 })
                 .catch(() => {
-                    console.log("記事編集失敗");
+                    //今後はエラーメッセージを表示させる
+                    alert("記事編集失敗");
                 });
         };
 

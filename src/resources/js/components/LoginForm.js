@@ -19,8 +19,6 @@ class LoginForm extends Component {
     }
 
     render() {
-        console.log(this.props.LoggedIn);
-        console.log(this.props.Token);
         const emailValidation = e => {
             const key = e.target.name;
             const value = e.target.value;
@@ -101,7 +99,8 @@ class LoginForm extends Component {
                     this.props.history.push("/MyPage");
                 })
                 .catch(res => {
-                    console.log("ログイン失敗");
+                    //今後はエラーメッセージを表示させる
+                    alert("ログイン失敗");
                 });
         };
 
