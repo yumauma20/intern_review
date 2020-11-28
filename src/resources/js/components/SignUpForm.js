@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Validation from "./validation";
 import { withRouter } from "react-router";
 
 class SignUpForm extends Component {
