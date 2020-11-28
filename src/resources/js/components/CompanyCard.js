@@ -3,6 +3,20 @@ import { Link } from "react-router-dom";
 
 class CompanyCard extends Component {
     render() {
+        const mapNumerToTerm = n => {
+            if (n == "1") {
+                n = "1日";
+            } else if (n == "2") {
+                n = "1週間未満";
+            } else if (n == "3") {
+                n = "1ヶ月未満";
+            } else if (n == "4") {
+                n = "3ヶ月未満";
+            } else if (n == "5") {
+                n = "3ヶ月以上";
+            }
+            return n;
+        };
         const omittedContent = string => {
             const MAX_LENGTH = 50;
             if (string.length > MAX_LENGTH) {
@@ -24,7 +38,9 @@ class CompanyCard extends Component {
                     <div className="mb-3 border-bottom h3">
                         {this.props.company}
                     </div>
-                    <div className="mb-3 text-muted h6">{this.props.term}</div>
+                    <div className="mb-3 text-muted h6">
+                        {mapNumerToTerm(this.props.term)}
+                    </div>
                     <p className="card-text" style={{ fontSize: "0.8em" }}>
                         {omittedContent(this.props.task)}
                     </p>
