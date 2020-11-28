@@ -26,6 +26,20 @@ class MyDetailModal extends Component {
     }
 
     render() {
+        const mapNumerToTerm = n => {
+            if (n == "1") {
+                n = "1日";
+            } else if (n == "2") {
+                n = "1週間未満";
+            } else if (n == "3") {
+                n = "1ヶ月未満";
+            } else if (n == "4") {
+                n = "3ヶ月未満";
+            } else if (n == "5") {
+                n = "3ヶ月以上";
+            }
+            return n;
+        };
         return (
             <>
                 <div
@@ -58,7 +72,7 @@ class MyDetailModal extends Component {
                         >
                             期間
                         </p>
-                        <p>{this.state.article.term}</p>
+                        <p>{mapNumerToTerm(this.state.article.term)}</p>
                     </div>
 
                     <div style={{ textAlign: "center" }}>
