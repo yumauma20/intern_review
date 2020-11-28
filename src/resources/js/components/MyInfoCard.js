@@ -27,7 +27,7 @@ class MyInfoCard extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
 
         // ログインしているユーザの名前を取得
@@ -40,7 +40,7 @@ class MyInfoCard extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 

@@ -17,7 +17,6 @@ class MyEditForm extends Component {
                 jobContent: "",
                 impressions: ""
             },
-            loading: false,
             article: []
         };
     }
@@ -37,7 +36,7 @@ class MyEditForm extends Component {
                 });
             })
             .catch(() => {
-                console.log("通信に失敗しました。");
+                alert("通信に失敗しました。");
             });
     }
 
@@ -88,7 +87,7 @@ class MyEditForm extends Component {
         };
 
         const canSubmit = () => {
-            const { info, message, loading } = this.state;
+            const { info, message } = this.state;
 
             const validInfo =
                 Object.values(info).filter(value => {
@@ -98,18 +97,11 @@ class MyEditForm extends Component {
                 Object.values(message).filter(value => {
                     return value !== "";
                 }).length === 0;
-            return validInfo && validMessage && !loading;
-        };
-
-        // 連打されるのを防ぐ
-        const submit = () => {
-            this.setState({ loading: true });
-            this.setState({ loading: false });
+            return validInfo && validMessage;
         };
 
         // フォームデータ登録非同期通信
         const postFormData = () => {
-            console.log("myeditformです");
             const url = `http://localhost/api/articles/edit/${this.props.id}`;
             const headers = {
                 Accept: "application/json",
@@ -128,7 +120,8 @@ class MyEditForm extends Component {
                     // todo 編集成功したらマイページにリダイレクトさせたい
                 })
                 .catch(() => {
-                    console.log("記事編集失敗");
+                    //今後はエラーメッセージを表示させる
+                    alert("記事編集失敗");
                 });
         };
 
@@ -148,7 +141,7 @@ class MyEditForm extends Component {
                     記事編集フォーム
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">企業</label>
+                    <label>企業</label>
                     <input
                         className="form-control"
                         type="text"
@@ -164,10 +157,9 @@ class MyEditForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">期間</label>
+                    <label>期間</label>
                     <select
                         className="form-control"
-                        id="exampleFormControlSelect1"
                         name="term"
                         value={info.term}
                         onChange={e => selectValidation(e)}
@@ -186,12 +178,11 @@ class MyEditForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">業務内容</label>
+                    <label>業務内容</label>
                     <textarea
                         className="form-control"
                         type="text"
                         name="jobContent"
-                        rows=""
                         maxLength="500"
                         value={info.jobContent}
                         onChange={e => countValidation(e)}
@@ -203,7 +194,7 @@ class MyEditForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlTextarea1">感想</label>
+                    <label>感想</label>
                     <textarea
                         className="form-control"
                         type="text"
@@ -211,7 +202,6 @@ class MyEditForm extends Component {
                         maxLength="500"
                         value={info.impressions}
                         onChange={e => countValidation(e)}
-                        id="exampleFormControlTextarea1"
                         rows="3"
                     />
                     {message.impressions && (

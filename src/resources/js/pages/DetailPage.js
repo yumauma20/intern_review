@@ -6,7 +6,6 @@ class DetailPage extends Component {
     render() {
         const params = this.props.match;
         const id = parseInt(params.params.id, 10);
-        console.log("detailpageのid" + id);
 
         return (
             <>
