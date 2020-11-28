@@ -165,11 +165,11 @@ class MyEditForm extends Component {
                         onChange={e => selectValidation(e)}
                     >
                         <option>選択してください</option>
-                        <option value="1">1日</option>
-                        <option value="2">1週間未満</option>
-                        <option value="3">1ヶ月未満</option>
-                        <option value="4">3ヶ月未満</option>
-                        <option value="5">3ヶ月以上</option>
+                        <option value="1日">1日</option>
+                        <option value="1週間未満">1週間未満</option>
+                        <option value="1ヶ月未満">1ヶ月未満</option>
+                        <option value="3ヶ月未満">3ヶ月未満</option>
+                        <option value="3ヶ月以上">3ヶ月以上</option>
                     </select>
                     {message.term && (
                         <p style={{ color: "red", fontSize: 8 }}>
