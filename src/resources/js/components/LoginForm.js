@@ -14,8 +14,7 @@ class LoginForm extends Component {
             message: {
                 email: "",
                 password: ""
-            },
-            loading: false
+            }
         };
     }
 
@@ -68,7 +67,7 @@ class LoginForm extends Component {
         };
 
         const canSubmit = () => {
-            const { info, message, loading } = this.state;
+            const { info, message } = this.state;
 
             const validInfo =
                 Object.values(info).filter(value => {
@@ -78,13 +77,7 @@ class LoginForm extends Component {
                 Object.values(message).filter(value => {
                     return value !== "";
                 }).length === 0;
-            return validInfo && validMessage && !loading;
-        };
-
-        // 連打されるのを防ぐ
-        const submit = () => {
-            this.setState({ loading: true });
-            this.setState({ loading: false });
+            return validInfo && validMessage;
         };
 
         const loginUser = () => {
@@ -128,13 +121,11 @@ class LoginForm extends Component {
                     ログインページ
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <label>Email address</label>
                     <input
                         type="email"
                         name="email"
                         className="form-control"
-                        id="exampleInputEmail1"
-                        // aria-describedby="emailHelp"
                         placeholder="Enter email"
                         value={info.email}
                         onChange={e => emailValidation(e)}
@@ -146,12 +137,11 @@ class LoginForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <label>Password</label>
                     <input
                         type="password"
                         name="password"
                         className="form-control"
-                        id="js-password"
                         placeholder="Password"
                         value={info.password}
                         onChange={e => passwordValidation(e)}
@@ -186,5 +176,3 @@ const mapDispatchToProps = { loginAction };
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(LoginForm)
 );
-
-// export default LoginForm;

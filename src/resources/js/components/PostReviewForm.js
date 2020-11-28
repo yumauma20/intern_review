@@ -16,8 +16,7 @@ class PostReviewForm extends Component {
                 term: "",
                 jobContent: "",
                 impressions: ""
-            },
-            loading: false
+            }
         };
     }
 
@@ -68,7 +67,7 @@ class PostReviewForm extends Component {
         };
 
         const canSubmit = () => {
-            const { info, message, loading } = this.state;
+            const { info, message } = this.state;
 
             const validInfo =
                 Object.values(info).filter(value => {
@@ -78,13 +77,7 @@ class PostReviewForm extends Component {
                 Object.values(message).filter(value => {
                     return value !== "";
                 }).length === 0;
-            return validInfo && validMessage && !loading;
-        };
-
-        // 連打されるのを防ぐ
-        const submit = () => {
-            this.setState({ loading: true });
-            this.setState({ loading: false });
+            return validInfo && validMessage;
         };
 
         // フォームデータ登録非同期通信
@@ -127,7 +120,7 @@ class PostReviewForm extends Component {
                     記事投稿フォーム
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">企業</label>
+                    <label>企業</label>
                     <input
                         className="form-control"
                         type="text"
@@ -143,10 +136,9 @@ class PostReviewForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">期間</label>
+                    <label>期間</label>
                     <select
                         className="form-control"
-                        id="exampleFormControlSelect1"
                         name="term"
                         value={info.term}
                         onChange={e => selectValidation(e)}
@@ -165,12 +157,11 @@ class PostReviewForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">業務内容</label>
+                    <label>業務内容</label>
                     <textarea
                         className="form-control"
                         type="text"
                         name="jobContent"
-                        rows=""
                         maxLength="500"
                         value={info.jobContent}
                         onChange={e => countValidation(e)}
@@ -182,7 +173,7 @@ class PostReviewForm extends Component {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlTextarea1">感想</label>
+                    <label>感想</label>
                     <textarea
                         className="form-control"
                         type="text"
@@ -190,7 +181,6 @@ class PostReviewForm extends Component {
                         maxLength="500"
                         value={info.impressions}
                         onChange={e => countValidation(e)}
-                        id="exampleFormControlTextarea1"
                         rows="3"
                     />
                     {message.impressions && (

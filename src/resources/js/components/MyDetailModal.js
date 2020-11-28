@@ -5,7 +5,6 @@ class MyDetailModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //  idで検索apiを作成して1件だけ取得して表示したい
             article: []
         };
     }

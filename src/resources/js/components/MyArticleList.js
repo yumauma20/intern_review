@@ -11,7 +11,7 @@ class MyArticlesList extends Component {
     }
 
     componentDidMount() {
-        //   render直後に行いたい処理を書くところ
+        // render直後に行いたい処理を書くところ
         const url = "http://localhost/api/myArticles";
         // headerにトークンを入れてから通信
         const headers = {

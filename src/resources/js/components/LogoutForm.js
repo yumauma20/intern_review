@@ -29,5 +29,3 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = { logoutAction };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutForm);
-
-// export default LogoutForm;
