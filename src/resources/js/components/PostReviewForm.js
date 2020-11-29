@@ -105,7 +105,7 @@ class PostReviewForm extends Component {
 
         const { info, message } = this.state;
         return (
-            <form
+            <div
                 className="bg-white border rounded container mt-4"
                 style={{
                     width: "600px",
@@ -197,7 +197,7 @@ class PostReviewForm extends Component {
                 >
                     投稿する
                 </button>
-            </form>
+            </div>
         );
     }
 }
