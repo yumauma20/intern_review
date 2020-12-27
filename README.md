@@ -106,3 +106,13 @@ $ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceP
 ```
 $ php artisan jwt:secret
 ```
+
+## db-host_intern_review コンテナ(DB コンテナ)が立ち上がらなかったら ...
+
+一旦 docker の image と container と volume を削除しよう
+
+それでもだめなら docker/db 配下の 3 つのディレクトリを削除（自分はこれで解決）
+
+```
+$ rm -rf ./docker/db/*
+```
