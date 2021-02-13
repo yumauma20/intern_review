@@ -1,30 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import MainPage from "../pages/MainPage";
+import PostReviewPage from "../pages/PostReviewPage";
+import SignUpPage from "../pages/SignUpPage";
+import LoginPage from "../pages/LoginPage";
+import MyPage from "../pages/MyPage";
+import LogoutPage from "../pages/LogoutPage";
+import DetailPage from "../pages/DetailPage";
+import MyDetailPage from "../pages/MyDetailPage";
+import MyEditPage from "../pages/MyEditPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "../modules/store";
 
-import GlobalNav from './GlobalNav';
-import Top from './Top';
-import About from './About';
-import CompanyCard from './CompanyCard';
-import Pagination from './Pagination';
+class App extends Component {
+    render() {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" component={MainPage} />
+                    <Route path="/SignUp" component={SignUpPage} />
+                    <Route path="/Login" component={LoginPage} />
+                    <Route path="/Logout" component={LogoutPage} />
+                    <Route path="/Post" component={PostReviewPage} />
+                    <Route path="/MyPage" component={MyPage} />
+                    <Route path="/Detail/:id" component={DetailPage} />
+                    <Route path="/MyDetail/:id" component={MyDetailPage} />
+                    <Route path="/MyEdit/:id" component={MyEditPage} />
+                    <Route path="/NotFound" component={NotFoundPage} />
+                </Switch>
+            </BrowserRouter>
+        );
+    }
 
-const App = () => {
-    return(
-        <BrowserRouter>
-        <React.Fragment>
-            <GlobalNav />
-            <CompanyCard />
-            <Pagination />
-            <Switch>
-　　　　　　　　　　{/*完全一致のため、exactを付与*/}
-                <Route path="/" exact component={Top} /> 
-                <Route path="/about" component={About} />
-            </Switch>
-        </React.Fragment>
-        </BrowserRouter>
-    )
 }
 
-if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
-}
+ReactDOM.render(
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
+    </Provider>,
+    document.getElementById("app")
+);
