@@ -40,4 +40,3 @@ class PaginationComponent extends Component {
 }
 
 export default PaginationComponent;
-
