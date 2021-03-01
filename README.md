@@ -107,12 +107,27 @@ $ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceP
 $ php artisan jwt:secret
 ```
 
-## db-host_intern_review コンテナ(DB コンテナ)が立ち上がらなかったら ...
+## db-host_intern_review コンテナ(DB コンテナ)が立ち上がらなかったら（phpmyadmin にアクセスできない） ...
+
+エラーメッセージ
+
+mysqli::real_connect(): (HY000/2002): php_network_getaddresses: getaddrinfo failed: Name or service not known
+
+対処法
 
 一旦 docker の image と container と volume を削除しよう
 
-それでもだめなら docker/db 配下の 3 つのディレクトリを削除（自分はこれで解決）
+## それでもだめなら ...
+
+docker/db 配下の 3 つのディレクトリを削除（自分はこれで解決）
 
 ```
 $ rm -rf ./docker/db/*
 ```
+
+その後以下のファイルも消えているはずなので復元する
+docker/db/my.cnf/default_authentication.cnf
+
+再起動すると治る
+
+そのあとは db コンテナに入ってマイグレーションする
