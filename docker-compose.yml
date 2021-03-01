@@ -1,39 +1,41 @@
-version: '3'
+version: "3"
 
 services:
   php: # アプリケーションサーバの設定
     container_name: php_intern_review
     build: ./docker/php # ./docker/php配下のDockerfileを参照して構築
     volumes:
-    - ./src:/var/www # 開発ディレクトリと公開ディレクトリをマウント
+      - ./src:/var/www # 開発ディレクトリと公開ディレクトリをマウント
+    links:
+      - db
 
   nginx: # WEBサーバのコンテナの設定
     image: nginx # nginxの公式イメージを使用
     container_name: nginx
     ports:
-    - 80:80 # ゲスト80,ホスト80番ポートで接続
+      - 80:80 # ゲスト80,ホスト80番ポートで接続
     volumes:
-    - ./src:/var/www # 開発ディレクトリと公開ディレクトリをマウント
-    - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf # nginx設定ファイルの指定
+      - ./src:/var/www # 開発ディレクトリと公開ディレクトリをマウント
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf # nginx設定ファイルの指定
     depends_on:
-    - php # nginxコンテナとphpコンテナを連携
+      - php # nginxコンテナとphpコンテナを連携
 
   db: # DBサーバのコンテナの設定
     image: mysql:8.0 # mysqlの公式イメージ使用
     container_name: db-host_intern_review
     environment: # DBの設定
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: database
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
-      TZ: 'Asia/Tokyo'
+      MYSQL_DATABASE: intern_review
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      TZ: "Asia/Tokyo"
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci # コンテナ起動時のコマンドを記述
     volumes: # コンテナのDBファイルを./docker/db/に永続化する
-    - ./docker/db/data:/var/lib/mysql # データベースのデータを永続化するためにホストのボリュームをマウント
-    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf # MySQLの設定ファイルをマウント
-    - ./docker/db/sql:/docker-entrypoint-initdb.d 
+      - ./docker/db/data:/var/lib/mysql # データベースのデータを永続化するためにホストのボリュームをマウント
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf # MySQLの設定ファイルをマウント
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
-    - 3306:3306 # ゲストとホストそれぞれの3306番ポートで接続
+      - 3306:3306 # ゲストとホストそれぞれの3306番ポートで接続
 
   phpmyadmin:
     container_name: phpmyadmin_intern_review
